@@ -1,0 +1,86 @@
+@extends('Admin/admin')
+@section('admin')
+
+<div class="container col-8">
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{$message}}</strong>
+  <h3 class="text-dark">Add Products</h3>
+</div>
+	
+<form class="forms-sample" action ="<?php echo url('products');?>" method="post" enctype="multipart/form-data">
+@csrf
+                    <div class="form-group">
+					<input type="hidden" name="id" value="<?php echo $id; ?>" >
+                      <label for="exampleInputName1">Name</label>
+                      <input type="text" class="form-control" onload="convertToSlug(this.value)" onkeyup="convertToSlug(this.value)" name="name" id="exampleInputName1" Required>
+                    </div>
+					<div  class="form-group">
+                      <label for="slug-text">Slug</label>
+                      <input type="text" class="form-control" name="slug" id="slug-text" Required>
+                    </div>
+					<div class="form-group">
+                      <label for="sku">Sku</label>
+                      <input type="text" class="form-control" id="sku" name="sku">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputcat">Category</label>
+					  
+						<select name="category[]" class="form-control " id="exampleInputcat" style = "height:80px;" multiple Required>
+							@foreach($data as $d)
+							<option value="{{$d->id}}" class="text-dark">{{$d->name}}</option>
+							@endforeach
+						</select>
+					</div>
+					<div class="form-group">
+                      <label for="exampleInputtag">Tags</label>
+						<select name="Tags[]" class="form-control" id="exampleInputtag" style = "height:80px;" multiple Required>
+							@foreach($tags as $t)
+							<option class="text-dark" value="{{$t->id}}">{{$t->name}}</option>
+							@endforeach
+						</select>
+					</div>
+					<div class="form-group">
+                      <label for="price">Price</label>
+					        <input type="number" class="form-control" name="price" id="price" Required>
+                    </div>
+					
+                    <div class="form-group">
+                      <label for="sale_price">Sale Price</label>
+					             <input type="number" class="form-control" name="sale_price" id="sale_price" Required>
+                    </div>
+					          <div class="form-group">
+                      <label>Product_image</label>
+                      <div class="input-group col-xs-12">
+					             <input type="file" class="form-control" name="image" id="File_upload" Required >
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Product Gallery</label>
+                      <div class="input-group col-xs-12">
+                      <input type="file" class="form-control" name="documents[]" multiple>
+                      </div>
+                    </div>
+					          <div class="form-group">
+                      <label for="manage_stock">Manage Stock</label>
+					                     <input type="checkbox" id="mstocks">
+                    </div>
+					          <div class="form-group" id="stockdiv" style="display:none;">
+                      <label for="price">No. of stocks</label>
+					                <input type="number" class="form-control" name="Stocks" id="stocks">
+                    </div>
+					        <div class="form-group">
+                      <label for="description">Description</label>
+                      <textarea class="ckeditor form-control" name="description"></textarea>
+                    </div>
+
+					
+					<div class="form-group">
+                      <label for="description">Short Description</label>
+					  <textarea name="short_description" id="placeHolder" class="form-control" Required ></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-sm">Submit</button>
+                  </form>
+
+				  </div>
+@endsection
+

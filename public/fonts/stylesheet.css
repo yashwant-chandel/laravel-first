@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'Bebas Neue';
+    src: url('BebasNeue.eot');
+    src: url('BebasNeue.eot?#iefix') format('embedded-opentype'),
+        url('BebasNeue.woff2') format('woff2'),
+        url('BebasNeue.woff') format('woff'),
+        url('BebasNeue.ttf') format('truetype'),
+        url('BebasNeue.svg#BebasNeue') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bebas Neue';
+    src: url('BebasNeueBold.eot');
+    src: url('BebasNeueBold.eot?#iefix') format('embedded-opentype'),
+        url('BebasNeueBold.woff2') format('woff2'),
+        url('BebasNeueBold.woff') format('woff'),
+        url('BebasNeueBold.ttf') format('truetype'),
+        url('BebasNeueBold.svg#BebasNeueBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bebas Neue';
+    src: url('BebasNeueBold_1.eot');
+    src: url('BebasNeueBold_1.eot?#iefix') format('embedded-opentype'),
+        url('BebasNeueBold_1.woff2') format('woff2'),
+        url('BebasNeueBold_1.woff') format('woff'),
+        url('BebasNeueBold_1.ttf') format('truetype'),
+        url('BebasNeueBold_1.svg#BebasNeueBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bebas Neue';
+    src: url('BebasNeueBold_2.eot');
+    src: url('BebasNeueBold_2.eot?#iefix') format('embedded-opentype'),
+        url('BebasNeueBold_2.woff2') format('woff2'),
+        url('BebasNeueBold_2.woff') format('woff'),
+        url('BebasNeueBold_2.ttf') format('truetype'),
+        url('BebasNeueBold_2.svg#BebasNeueBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
