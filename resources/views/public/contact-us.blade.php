@@ -32,45 +32,43 @@
 					<h2 class="text-center hide-on-desktop wow fadeInUp">Get In Touch</h2>
 					<img src="img/contact-image.jpg" class="image-fluid wow fadeInUp" alt="...">
 					<div class="address-wrapper">
-						<div class="address-box wow fadeInUp">
-							<h3>Address</h3>
-							<p>4 MacDonald Ave Armonk, NY 10504.</p>
-						</div>
-						<div class="address-box wow fadeInUp">
-							<h3>phone</h3>
-							<ul>
-								<li><a href="tel:+1-202-555-0175 "> +1-202-555-0175 </a></li>
-								<li><a href="tel:+1-202-555-0175 "> +1-248-672-5500 </a></li>
-							</ul>
-						</div>
+						
 						<div class="address-box wow fadeInUp">
 							<h3>EMAIL</h3>
 							<ul>
-								<li><a href="mailto:Hello@jackrosenthal.com"> Hello@jackrosenthal.com</a></li>
+								<li><a href="mailto:{{$admindata[0]->Username}}"> <?php echo $admindata[0]->Username; ?></a></li>
 								
 							</ul>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-7 form-col">
+
+   	<div class="col-md-7 form-col">
 					<div class="form-box">
 						<h2 class="text-center hide-on-mobile wow fadeInUp">Get In Touch</h2>
 						<div class="contact-form wow fadeInUp">
-						<form>
+						@foreach ($errors->all() as $error)
+       					 <div>{{ $error }}</div>
+   						 @endforeach
+						 <?php
+						 echo $response;
+						 ?>
+						<form method="post" action="<?php echo url('contactform');?>">
+						@csrf
 							<div class="form-group">
-						    <input type="text" class="form-control" id="name" placeholder="Your Name*">
+						    <input type="text" class="form-control" name="name" id="name" placeholder="Your Name*">
 						  </div>
 						  <div class="form-group">
-						    <input type="text" class="form-control" id="phone_number" placeholder="Phone Number*">
+						    <input type="tel" class="form-control" name="phone" id="phone_number" placeholder="Phone Number*">
 						  </div>
 						  <div class="form-group">
-						   <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Address*">
+						   <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Address*">
 						  </div>
 						   <div class="form-group">
-						    <input type="text" class="form-control" id="subject" placeholder="subject*">
+						    <input type="text" class="form-control" name="subject" id="subject" placeholder="subject*">
 						  </div>
 						  <div class="form-group">
-			<textarea class="form-control" id="info" placeholder="Give us a little detail so we can best help you and your needs!*"></textarea>
+							<textarea class="form-control" id="info" name="message" placeholder="Give us a little detail so we can best help you and your needs!*"></textarea>
 						  </div>
 						  
 						  <button type="submit" class="btn">Submit</button>

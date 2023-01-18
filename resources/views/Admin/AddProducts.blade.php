@@ -6,6 +6,9 @@
   <strong>{{$message}}</strong>
   <h3 class="text-dark">Add Products</h3>
 </div>
+@foreach ($errors->all() as $error)
+       					 <div>{{ $error }}</div>
+   						 @endforeach
 	
 <form class="forms-sample" action ="<?php echo url('products');?>" method="post" enctype="multipart/form-data">
 @csrf

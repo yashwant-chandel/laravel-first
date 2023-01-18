@@ -12,26 +12,8 @@ use App\Models\Tags;
 class Shop extends Controller
 {
    public function index($catid = null){
-      // if($catid == null){
     $results = products::paginate(12);
-      // }else{
-         // echo $catid;
-   //       $data = DB::select('select id from Categories where parent_category = ?', [$catid]);
-   //       // print_r($data);
-   //       if(!empty($data)){
-   //          // foreach($data as $d){
-   //          $id = $data[0]->id;
-   //          // }
-   //          // print_r($parent_id);
-   //       }else{
-   //          $id = 0;
-   //       }
-   //    // echo $parent_id;
-   
-   // $results = DB::table('products')->where('categories',$catid)->orWhere('categories','like', $catid.'%')->orWhere('categories','like','%'.$catid.'%')->orwhere('categories','like','%'.$catid)->orwhere('categories','%'.$id)->orWhere('categories','like', $id.'%')->orWhere('categories','like','%'.$id.'%')->orwhere('categories','like','%'.$id)->orwhere('categories',$id)->paginate(12);
-
-   //  print_r($results);
-      // }
+     
 
     $banner = banner::find(1);
     $cat = Categories::all();
@@ -78,17 +60,13 @@ class Shop extends Controller
     return view('public/product-detail')->with('product',$product);
      
    }
+ 
+  
    public function deleteproducts($id){
       $blog = products::find($id);
       $blog->delete();
       return redirect('Productsview')->with('success','successfully deleted record');
    }
-   public function testing(){
-      $data = array(1,2,3);
-      return response()->json($data);  
-   }
-   public function testing2(Response $request){
-      print_r($request->id);
-   }
+   
    
 }

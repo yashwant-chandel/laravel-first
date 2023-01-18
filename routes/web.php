@@ -22,21 +22,25 @@ use App\Http\Controllers\Controller;
 Route::post('deletecart',[Admin::class,'deletecart']);
 Route::post('cart',[Admin::class,'cart']);
 Route::get('/cartview',[Admin::class,'cartview']);
-Route::get('/contact-page',[Admin::class,'contactus']);
-
+Route::get('/contact-page',[Home::class,'Contactus']);
+Route::post('/contactform',[Home::class,'contactmessage']);
 Route::get('/privacypolicy', function () {
     return view('privacy-policy-page');
 });
 
+Route::get('admin/message',[Adminpanel::class,'message']);
 Route::get('/loginuser',[Adminlogin::class,'index']);
 Route::post('/login',[Adminlogin::class,'login']);
-
+Route::post('favourite',[Home::class,'favouriteitems']);
+Route::get('Whislist',[Home::class,'Whislist']);
+Route::post('whislist/delete',[Home::class,'deleteitem']);
 
 Route::get('/AddProducts/{id?}',[Adminpanel::class,'Products']);
 Route::get('/AddBlogs/{id?}',[Adminpanel::class,'Blogs']);
 Route::get('/about',[Home::class,'Aboutauthor']);
 Route::post('/products',[Adminpanel::class,'Addproducts']);
 Route::post('/blogs',[Adminpanel::class,'Addblogs']);
+Route::post('blog/search',[Blog::class,'search']);
 Route::post('/adminedit',[Adminpanel::class,'Adminedit']);
 Route::get('/logout',[Adminpanel::class,'logout']);
 Route::get('/shop/{id?}',[Shop::class,'index']);
@@ -63,8 +67,6 @@ Route::get('Editcategories',[Admin::class,'EditCategory']);
 Route::post('updatecart',[Admin::class,'updatecart']);
 Route::get('deletecat/{id}',[Admin::class,'deletecategory']);
 Route::get('deletetag/{id}',[Admin::class,'deletetags']);
-Route::get('testing/',[Shop::class,'testing']);
-Route::post('testing2',[Shop::class,'testing2']);
 Route::post('categorysort',[Shop::class,'categorysort']);
 Route::post('Tagsort',[Shop::class,'Tagsort']);
 

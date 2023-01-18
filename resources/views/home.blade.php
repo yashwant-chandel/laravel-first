@@ -68,7 +68,7 @@
 						<div class="nav-icon">
 							<ul class="list-unstyled d-flex mb-0">
 								<li>
-									<a href=""><i class="bi bi-heart"></i>
+									<a href="<?php echo url('Whislist'); ?>"><i class="bi bi-heart"></i>
 										<span>0</span>
 									</a>
 								</li>
@@ -192,6 +192,27 @@
 
 	// });
 	// });
+$(document).ready(function(){
+	$('.removeitem1').click(function(){
+		// console.log('hlo');
+		id = $(this).attr('data-id');
+		// console.log(id);
+		$.ajax({
+			method:'post',
+		url:'{{url('whislist/delete')}}',
+		dataType: 'json',
+		data: {_token: '{{csrf_token()}}', id:id},
+		success: function(response)
+                {
+					location.reload();
+                }
+
+	});
+		});
+
+	});
+
+
 
   $('.updatecart').click(function(e){
 	e.preventDefault();
@@ -199,14 +220,15 @@
 	// console.log(ele.attr('data-id'));
 	qty = $('#qty'+ele).val();
 	// alert(qty);
-	
+	// console.log(qty);
 	$.ajax({
 		method:'post',
 		url:'{{url('updatecart')}}',
 		dataType: 'json',
-		data: {_token: '{{csrf_token()}}', id:ele, quantity:qty},
+		data: {_token: '{{csrf_token()}}', id:ele, qty:qty},
 		success: function(response)
                 {
+					// $('#cart-page').load();
 					location.reload();
                 }
 
@@ -254,7 +276,7 @@ $('.Addtocarthome').click(function(event){
 		data: {id:sid, qty:1, _token: '{{csrf_token()}}'},
 		success: function(response)
                 {
-                //    console.log(response);
+					// $("<div>Test message</div>").dialog();
 				alert('successfully added to cart');
                 }
 	});
@@ -289,8 +311,8 @@ $(document).ready(function(){
 					const divdata = [];
 				 $.each(response.data, function(key,value){
 					
-					html = '<div class="col-lg-3 col-md-6 col-12"><div class="card"><div class="shop-img"><a href="" class="product-thumb"><img class="card-img-top" src="'+value.image_path+'/'+value.img+'" alt="Card image cap"></a><div class="shop-icon"><a href="#" class="Addtocarthome me-2" data-id="'+value.id+'" id="Addtocarthome"  style="pointer-events: <?php if(empty($session)){ echo 'none'; }?>;" ><i class="bi bi-cart"></i></a><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></div></div><div class="card-body text-center"><h4 id="pname">'+value.productname+'</h4><span><del>$'+value.price+'</del> <span class="text-dark">$'+value.sale_price+'</span></span><hr><div class="feature-btn text-center"><a href="{{url('/products/')}}/'+value.id+'"class="btn btn-light">View Product</a></div></div></div></div>';
-					// console.log(html);
+					html = '<div class="col-lg-3 col-md-6 col-12"><div class="card"><div class="shop-img"><a href="" class="product-thumb"><img class="card-img-top" src="'+value.image_path+'/'+value.img+'" alt="Card image cap"></a></div><div class="card-body text-center"><h4 id="pname">'+value.productname+'</h4><span><del>$'+value.price+'</del> <span class="text-dark">$'+value.sale_price+'</span></span><hr><div class="feature-btn text-center"><a href="{{url('/products/')}}/'+value.id+'"class="btn btn-light">View Product</a></div></div></div></div>';
+					console.log(html);
 					divdata.push(html);
 				 });
 				//  console.log(divdata);
@@ -316,17 +338,64 @@ $(document).ready(function(){
 				const divdata = [];
 				 $.each(response.data, function(key,value){
 					
-					html = '<div class="col-lg-3 col-md-6 col-12"><div class="card"><div class="shop-img"><a href="" class="product-thumb"><img class="card-img-top" src="'+value.image_path+'/'+value.img+'" alt="Card image cap"></a><div class="shop-icon"><a href="#" class="Addtocarthome me-2" data-id="'+value.id+'" id="Addtocarthome"  style="pointer-events: <?php if(empty($session)){ echo 'none'; }?>;" ><i class="bi bi-cart"></i></a><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></div></div><div class="card-body text-center"><h4 id="pname">'+value.productname+'</h4><span><del>$'+value.price+'</del> <span class="text-dark">$'+value.sale_price+'</span></span><hr><div class="feature-btn text-center"><a href="{{url('/products/')}}/'+value.id+'"class="btn btn-light">View Product</a></div></div></div></div>';
-					// console.log(html);
+					html = '<div class="col-lg-3 col-md-6 col-12"><div class="card"><div class="shop-img"><a href="" class="product-thumb"><img class="card-img-top" src="'+value.image_path+'/'+value.img+'" alt="Card image cap"></a></div><div class="card-body text-center"><h4 id="pname">'+value.productname+'</h4><span><del>$'+value.price+'</del> <span class="text-dark">$'+value.sale_price+'</span></span><hr><div class="feature-btn text-center"><a href="{{url('/products/')}}/'+value.id+'"class="btn btn-light">View Product</a></div></div></div></div>';
+					console.log(html);
 					divdata.push(html);
 				 });
 				//  console.log(divdata);
 				 $('.productssection').html(divdata);
                 }
+		});
 	});
+});
 
+$(document).ready(function(){
+	$('.favourite').click(function(e){
+		// alert('done');
+		e.preventDefault();
+		id = $(this).attr('data-id');
+		$.ajax({
+			method: 'post',
+			url: '{{url('favourite')}}',
+			dataType: 'json',
+			data: {id:id, _token: '{{csrf_token()}}'},
+			success: function(response)
+			{
+				console.log(response);
+			}
+
+
+		})
+		// console.log(val);
+	})
+
+
+});
+$(document).ready(function(){
+	$('#searchblog').keyup(function(){
+		// console.log($(this).val());
+		val = $(this).val();
+		// console.log(val);
+		$.ajax({
+			method: 'post',
+			url: '{{url('blog/search')}}',
+			dataType: 'json',
+			data: {val:val, _token: '{{csrf_token()}}'},
+			success: function(response)
+			{
+				const uldata = [];
+				$.each(response, function(key,value){
+				html = '<li class="list-group-item"><img src="'+value.image_path+'/'+value.img+'" class="" style="width:50%;" alt="">'+value.heading+'</li><a href="{{url('/blogs-page/')}}/'+value.id+'" class="btn btn-light text-dark">Read More</a>';
+					uldata.push(html);
+				
+				});
+				console.log(uldata);
+				$('.Search_panel').html(uldata);
+			}
+
+
+		});
 	});
-
 });
 
 </script>

@@ -5,6 +5,9 @@
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
   <strong>{{$message}}</strong>
   <h3 class="text-dark">Add Category</h3>
+  @foreach ($errors->all() as $error)
+       					 <div>{{ $error }}</div>
+   						 @endforeach
 </div>
 <div class="container col-12">
 <div class="card-body">

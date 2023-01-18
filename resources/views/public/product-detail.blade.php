@@ -76,7 +76,7 @@
 									?>
 									<a href="" class=" btn dark" data-id="{{$product['id']}}" id="Addtocart"  style="pointer-events: <?php if(empty($session)){ echo 'none'; }?>;">
 									 Add to Cart</a>
-									<a href="#" class="btn light">Wishlist</a>
+									<a href="#" data-id = "{{$product['id']}}" class="favourite btn light">Wishlist</a>
 								</div>
 							</form>
 						</div>

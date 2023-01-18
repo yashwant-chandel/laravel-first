@@ -394,9 +394,26 @@ else{
     return view('Admin.editblogs')->with('blogs',$results);
     
 }
+public function message(){
+        $session = Session::get('user');
+        // print_r($session[0]->categories);
+        if(!empty($session)){
+            if($session[0]->categories != 0){
+            return redirect('/');
+            }
+    } 
+    else{
+        return redirect('/loginuser');
+    }
+    $data = DB::table('Contact')->orderBy('created_at', 'desc')->get();
+    // print_r($data);
+
+    return view('Admin.Adminmessage')->with('data',$data);
+
+}
 
     public function logout(){
-        Session::remove('user');
+        Session::flush();
         return redirect('/');
     }
 }

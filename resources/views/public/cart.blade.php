@@ -3,7 +3,7 @@
 	
 
 
-	<div class="cart-page">
+	<div class="cart-page" id ="cart-page">
 	
 		<div class="cart-section">
 			<div class="container">

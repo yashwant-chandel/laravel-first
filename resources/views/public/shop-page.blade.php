@@ -75,8 +75,8 @@
 									<a href="#" class="Addtocarthome me-2" data-id="{{$d->id}}" id="Addtocarthome"  style="pointer-events: <?php if(empty($session)){ echo 'none'; }?>;" >
 									<i class="bi bi-cart"></i>
 								</a>
-								<a href="#">
-									<i class="fa-solid fa-magnifying-glass"></i>
+								<a href="" class="favourite" data-id = "{{$d->id}}">
+									<i class="bi bi-heart "></i>
 								</a>
 							</div>
 						</div>
@@ -112,6 +112,7 @@
 				</div>
 			</div>
 		</div>
+		
 	</section>
 	<!-- shop now section end here  -->
 

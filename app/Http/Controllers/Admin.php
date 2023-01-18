@@ -191,14 +191,14 @@ if(!empty($request->id)){
         return view('Admin.Profile')->with('message',$success);
     }
     public function updatecart(Request $request){
-         if($request->quantity == 0){
+         if($request->qty == 0){
             $cart = Cart::find($request->id);
             $cart->delete();
             print_r($request->id);
          }else{
             $cart = Cart::find($request->id);
-            $cart->quantity = $request->quantity;
-            $cart->total_price = $cart->price*$request->quantity;
+            $cart->quantity = $request->qty;
+            $cart->total_price = $cart->price*$request->qty;
             $cart->save();
             print_r($request->id);
          }
@@ -209,7 +209,27 @@ if(!empty($request->id)){
         $session = Session::get('user');
     //    print_r($request->qty);
             if($request->id){
+
                 $data = products::find($request->id);
+                // print_r($request->qty);
+            //     $cart = session()->get('cart', []);
+            //     if(isset($cart[$request->id])) {
+            //         $cart[$request->id]['quantity']++;
+            //     }  else{ $cart[$request->id] = [
+            //         "productname" => $product->productname,
+            //         "image" => $product->img,
+            //         "slug" => $product->Slug,
+            //         "sku" => $product->sku,
+            //         "price" => $product->price,
+            //         "total_quantity" => $product->stock,
+            //         "quantity" => $request->qty
+            //     ];
+            // }
+            // Session::put('cart', $cart);
+
+            //     return response()->json($cart);
+                
+
                 $pid = DB::table('Cart')->where('product_id', $data['id'])->where('buyer_id',$session[0]->id)->value('id');
                 if(!empty($pid)){
                     // print_r($request->id);
@@ -217,7 +237,7 @@ if(!empty($request->id)){
                     $cart->quantity = $request->qty;
                     $cart->total_price = $data['sale_price']*$request->qty;
                     $cart->save();
-                    print_r($request->id);
+                    return response()->json('succesfully updated cart');
                 } 
                 else{
                 $cart = new Cart;
@@ -233,7 +253,7 @@ if(!empty($request->id)){
                 $cart->img = $data['img'];
                 $cart->save();
                 if($cart->save()){
-                    print_r($request->id);
+                    return response()->json('successfully added to cart item');
                 }
                 
             }
@@ -242,7 +262,8 @@ if(!empty($request->id)){
     }
     public function cartview(){
         $session = Session::get('user');
-        // print_r($session);
+        $cart = Session::get('cart');
+        print_r($cart);
         if(!empty($session)){
         // print_r($session);
         $cartdata = DB::select('select * from Cart where buyer_id = ?',[$session[0]->id]);
@@ -259,9 +280,7 @@ if(!empty($request->id)){
             print_r($request->id);
         }
     }
-    public function contactus(){
-        return view('public.contact-us');
-    }
+    
     public function deletecategory($id){
         $cat = Categories::find($id);
         $cat->delete();

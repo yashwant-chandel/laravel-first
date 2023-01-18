@@ -4,6 +4,9 @@
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
   <strong>{{$message}}</strong>
   <h3 class="text-dark">Add Tags</h3>
+  @foreach ($errors->all() as $error)
+       					 <div>{{ $error }}</div>
+   						 @endforeach
 </div>
     <div class="card-body">
                   <form class="forms-sample" action="<?php echo url('addtags'); ?>" method="post">

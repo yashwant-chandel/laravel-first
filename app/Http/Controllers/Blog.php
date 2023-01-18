@@ -30,4 +30,11 @@ class Blog extends Controller
        $blog->delete();
        return redirect('Editblogs')->with('success','successfully deleted record');
     }
+    public function search(Request $req){
+        $data = DB::table('Blogs')->where('heading','like',$req->val.'%')->get();  
+        return response()->json($data);
+    }
+    public function productsearch(Request $req){
+        
+    }
 }

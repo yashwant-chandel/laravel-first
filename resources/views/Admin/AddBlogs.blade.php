@@ -13,6 +13,9 @@ $session = Session::get('user');
 		// echo $data['id'];
 		print_r($message);
 		?>
+		@foreach ($errors->all() as $error)
+       					 <div>{{ $error }}</div>
+   						 @endforeach
 					<div class="form-box">
 						<h2 class="text-center hide-on-mobile wow fadeInUp">Add Blogs</h2>
 						<div class="contact-form wow fadeInUp">

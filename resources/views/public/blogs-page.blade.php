@@ -59,19 +59,23 @@
 						<form class="search-box">
 							<div class="input-group">
 								<span class="input-group-text rounded-0 border-end-0" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
-								<input type="text" class="form-control rounded-0 border-start-0" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+								<input type="text" id="searchblog" class="form-control rounded-0 border-start-0" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
 							</div>
 						</form>
-						
 						<hr>
+						<div class="list-wrapper">
+							<ul class="Search_panel list-group list-group-flush">
+								
+							</ul>
+						</div>
+						
 						<div class="list-wrapper">
 							<h4>Recent Posts</h4>
 							<ul class="list-group list-group-flush">
 								
 								@foreach($data as $d)
 								<li class="list-group-item">
-									<img src="{{$d->image_path}}/{{$d->img}}" class="" style=" max-width: 50%;
-    height: auto;" alt="">
+									<img src="{{$d->image_path}}/{{$d->img}}" class="" style=" max-width: 50%; height: auto;" alt="">
 								<?php echo $d->heading; ?>
 								</li>
 								@endforeach
