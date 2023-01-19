@@ -69,12 +69,14 @@
 							<ul class="list-unstyled d-flex mb-0">
 								<li>
 									<a href="<?php echo url('Whislist'); ?>"><i class="bi bi-heart"></i>
-										<span>0</span>
+									<?php $whislist = Session::get('whislist');
+									?>
+										<span><?php if(isset($whislist)){ echo count($whislist); }else{ echo 0; } ?></span>
 									</a>
 								</li>
 								<li>
 									<a href="<?php echo url('cartview'); ?>"><i class="bi bi-cart"></i>
-										<span>{{ $total ?? '0' }}</span>
+										<span class="cartitemscount" > </span>
 									</a>
 								</li>
 							</ul>
@@ -97,14 +99,8 @@
 		<div class="container">
 			<div class="row footer-wreap">
 				<div class="col-lg-3 col-md-3 col-sm-6 col-12">
-					<div class="footer-content wow fadeInUp">
-						<div class="logo">
-							<a class="navbar-brand" href="index.html">Jack Rosenthal <p>Serial Entrepreneur, Investor &amp; Author</p></a>
-						</div>
-						<p>
-							If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
-						</p>
-					</div>
+					<div class="footerhtml footer-content wow fadeInUp" id ="footer-content">
+						</div>	
 				</div>
 				<div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6 col-12">
 					<div class="footer-content wow fadeInUp">
@@ -163,7 +159,7 @@
 		</div>
 		<div class="footer-buttom">
 			<div class="text-center wow fadeInUp">
-				<h6 style="color: #fff;" class="mb-0">Jack Rosenthal - © 2022 All Rights Reserved</h6>
+				<h6 style="color: #fff;" class="mb-0"><span class="adminname"></span> - © 2022 All Rights Reserved</h6>
 			</div>
 		</div>
 	</footer>
@@ -258,7 +254,10 @@ $('#Addtocart').click(function(event){
 		data: {id:sid, qty:qty, _token: '{{csrf_token()}}'},
 		success: function(response)
                 {
-                   console.log(response);
+                //    console.log(response);
+				   html = '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Succesfully added to cart</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+               $('#response').html(html);
+			// console.log(html);
 				// alert('successfully added to cart');
                 }
 	});
@@ -276,15 +275,15 @@ $('.Addtocarthome').click(function(event){
 		data: {id:sid, qty:1, _token: '{{csrf_token()}}'},
 		success: function(response)
                 {
-					// $("<div>Test message</div>").dialog();
-				alert('successfully added to cart');
-                }
+				html = '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Succesfully added to cart</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+               $('.results').html(html);
+			}
 	});
 });
 $('.deletecart').click(function(event){
 	event.preventDefault();
 	id = $(this).attr('data-id');
-	console.log(id);
+	// console.log(id);
 	$.ajax({
 		method: 'post',
 		url: '{{url('deletecart')}}',
@@ -334,15 +333,16 @@ $(document).ready(function(){
 		data: {id:id, _token: '{{csrf_token()}}'},
 		success: function(response)
                 {
+					// console.log(response);
                 //  console.log(response.data);
 				const divdata = [];
-				 $.each(response.data, function(key,value){
+				 $.each(response, function(key,value){
 					
 					html = '<div class="col-lg-3 col-md-6 col-12"><div class="card"><div class="shop-img"><a href="" class="product-thumb"><img class="card-img-top" src="'+value.image_path+'/'+value.img+'" alt="Card image cap"></a></div><div class="card-body text-center"><h4 id="pname">'+value.productname+'</h4><span><del>$'+value.price+'</del> <span class="text-dark">$'+value.sale_price+'</span></span><hr><div class="feature-btn text-center"><a href="{{url('/products/')}}/'+value.id+'"class="btn btn-light">View Product</a></div></div></div></div>';
-					console.log(html);
+					// console.log(html);
 					divdata.push(html);
 				 });
-				//  console.log(divdata);
+				// //  console.log(divdata);
 				 $('.productssection').html(divdata);
                 }
 		});
@@ -389,7 +389,7 @@ $(document).ready(function(){
 					uldata.push(html);
 				
 				});
-				console.log(uldata);
+				// console.log(uldata);
 				$('.Search_panel').html(uldata);
 			}
 
@@ -397,6 +397,49 @@ $(document).ready(function(){
 		});
 	});
 });
+$(document).ready(function(){
+	$('.productsearch').keyup(function(){
+		val = $(this).val();
+		// console.log(val);
+		$.ajax({
+			method: 'post',
+			url: '{{url('Products/search')}}',
+			dataType: 'json',
+			data: {val:val, _token: '{{csrf_token()}}'},
+			success: function(response)
+			{
+				  //  console.log(response.data);
+				  const divdata = [];
+				 $.each(response, function(key,value){
+					
+					html = '<div class="col-lg-3 col-md-6 col-12"><div class="card"><div class="shop-img"><a href="" class="product-thumb"><img class="card-img-top" src="'+value.image_path+'/'+value.img+'" alt="Card image cap"></a></div><div class="card-body text-center"><h4 id="pname">'+value.productname+'</h4><span><del>$'+value.price+'</del> <span class="text-dark">$'+value.sale_price+'</span></span><hr><div class="feature-btn text-center"><a href="{{url('/products/')}}/'+value.id+'"class="btn btn-light">View Product</a></div></div></div></div>';
+					// console.log(html);
+					divdata.push(html);
+				 });
+				// //  console.log(divdata);
+				 $('.productssection').html(divdata);
+			}
+		});
+	});	
+});
+
+
+$(document).ready(function(){
+	$.ajax({
+			method: 'get',
+			url: '{{url('public/headerfooter')}}',
+			dataType: 'json',
+			success: function(response)
+			{
+				// console.log(response);
+				html = '<div class="logo"><a class="navbar-brand" href="">'+response[1].name+'</a></div><p>'+response[1].heading+'</p></div>';
+				$('.footerhtml').html(html);
+				  $('.cartitemscount').html(response[0]);
+				  $('.adminname').html(response[1].name);
+				
+			}
+		});	
+	});
 
 </script>
 <script>
@@ -417,6 +460,8 @@ $(document).ready(function(){
 			return false;
 		});
 	});
+
+	
 </script>
 <script>
 	wow = new WOW(

@@ -8,6 +8,8 @@ use App\Models\products;
 use App\Models\banner;
 use App\Models\Categories;
 use App\Models\Tags;
+use Image;
+use file;
 
 class Shop extends Controller
 {
@@ -25,23 +27,33 @@ class Shop extends Controller
 
    public function categorysort(Request $request){
       if($request->id == 0){
-         $results = $results = products::paginate(12);
+         $results = products::paginate(12);
+         
       }else{
       $data = DB::select('select id from Categories where parent_category = ?', [$request->id]);
-         // print_r($data);
-         if(!empty($data)){
-            // foreach($data as $d){
-            $id = $data[0]->id;
-            // }
-            // print_r($parent_id);
-         }else{
-            $id = 0;
+         
+      if(!empty($data)){
+         $childdata = [];
+         foreach($data as $d){
+          $query =  DB::table('products')->orwhere('categories',$d->id)->paginate(12);
+          foreach($query as $q){
+            $queryy = (array) $q;
+           
+            array_push($childdata,$queryy);
+          }
+          
          }
+      }else{
+         $childdata = [];
+      }
       // echo $parent_id;
    
-   $results = DB::table('products')->where('categories',$request->id)->orWhere('categories','like', $request->id.'%')->orWhere('categories','like','%'.$request->id.'%')->orwhere('categories','like','%'.$request->id)->orwhere('categories','%'.$id)->orWhere('categories','like', $id.'%')->orWhere('categories','like','%'.$id.'%')->orwhere('categories','like','%'.$id)->orwhere('categories',$id)->paginate(12);
-      }
-   return response()->json($results); 
+   $results = DB::table('products')->where('categories',$request->id)->orWhere('categories','like', $request->id.'%')->orWhere('categories','like','%'.$request->id.'%')->orwhere('categories','like','%'.$request->id)->paginate(12);
+foreach($results as $r){
+   array_push($childdata,$r);
+}      
+}
+   return response()->json($childdata); 
    }
 
    public function Tagsort(Request $request){
@@ -54,11 +66,18 @@ class Shop extends Controller
 }
 
 
-   public function products($id){
-    $product = products::find($id);
+   public function products($slug){
+    $products = DB::table('products')->where('Slug',$slug)->get();
+    foreach($products as $p){
+      $product = $p;
+    }
     // print_r($product['price']);
     return view('public/product-detail')->with('product',$product);
      
+   }
+   public function Searchproducts(Request $request){
+      $data = DB::table('products')->where('productname','like',$request->val.'%')->get(); 
+      return response()->json($data);
    }
  
   
@@ -67,6 +86,11 @@ class Shop extends Controller
       $blog->delete();
       return redirect('Productsview')->with('success','successfully deleted record');
    }
+   public function testing(Request $request){
+      
+
+   }
+
    
    
 }

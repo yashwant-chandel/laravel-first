@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('banner', function (Blueprint $table) {
+        Schema::create('Contact', function (Blueprint $table) {
             $table->id();
-            $table->string('banner_description');
-            $table->string('banner_img');
-            $table->string('url');
-            $table->integer('admin_id');
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone');
+            $table->string('Subject');
+            $table->string('message');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banner');
+        Schema::dropIfExists('Contact');
     }
 };

@@ -39,12 +39,19 @@
 				<div class="shopview-select">
 			<h5 class="text-center">Categories</h5>
 			<ul class="list-group" style="max-height: 120px; overflow: scroll;">
-			<li class="list-group-item "><a style="text-decoration: none;" class="categories text-dark" data-id = "0"  href="{{url('shop')}}">Default</a></li>
+			<li class="list-group-item "><a style="text-decoration: none;" class=" text-dark"   href="{{url('shop')}}">Default</a></li>
 			@foreach($cat as $c)
 				<li class="list-group-item "><a style="text-decoration: none;" class="categories text-dark" data-id = "{{$c['id']}}" href="">{{$c['name']}}</a></li>
 			@endforeach
 			</ul>
 				</div>
+				<form class="search-box">
+							<div class="input-group">
+								<span class="input-group-text rounded-0 border-end-0" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
+								<input type="text" id="productsearch" class="productsearch form-control rounded-0 border-start-0" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+							</div>
+						</form>
+				
 				<div class="shopview-select">
 			<h5 class="text-center">Tags</h5>
 			<ul class="list-group" style=" width:150px; height: 120px; overflow: scroll;">
@@ -57,8 +64,14 @@
 				
 			</div>
 			<hr>
+			
 		</div>
+		
 		<div class="container grid-container">
+		<div class="results">
+		
+			</div>
+			
 		
 			<div class="productssection row" id="productssection">
 			@foreach($results as $d)
@@ -85,7 +98,7 @@
 							<span  ><del>${{$d->price}}</del> <span class="text-dark">${{$d->sale_price}}</span></span>
 							<hr>
 							<div class="feature-btn text-center">
-								<a href="{{url('/products/'.$d->id)}}"class="btn btn-light">View Product</a>
+								<a href="{{url('/products/'.$d->Slug)}}"class="btn btn-light">View Product</a>
 							</div>
 						</div>
 					</div>
@@ -117,7 +130,7 @@
 	<!-- shop now section end here  -->
 
 	<!-- Best courses section start here  -->
-	<section class="courses-wrapper">
+<section class="courses-wrapper">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-md-8 col-sm-12 col-12">

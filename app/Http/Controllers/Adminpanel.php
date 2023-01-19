@@ -115,11 +115,11 @@ class Adminpanel extends Controller
             $image_path=url('products_images');
             // print_r($name);
             $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:products',
             'description' => 'required',
             'price' => 'required',
             'sku' => 'required|unique:products',
-            'slug' => 'required',
+            'slug' => 'required|unique:products',
             'category' => 'required',
             'short_description' => 'required',
             'price' => 'required',
@@ -202,6 +202,11 @@ class Adminpanel extends Controller
     else{
         return redirect('/loginuser');
     }
+    $request->validate([
+        'heading' => 'required',
+        'description' => 'required',
+        'short_notice' => 'required'
+    ]);
 
         if(!empty($request->id)){
             if($request->hasfile('project_image')){
@@ -264,7 +269,7 @@ class Adminpanel extends Controller
         // print_r($request->all());
       
     }
-public function adminview(){
+public function Adminview(){
     $session = Session::get('user');
     // print_r($session[0]->categories);
     if(!empty($session)){
@@ -278,9 +283,9 @@ else{
     
    
     $data = (array) $session[0];
-    $userdata = admin::find($data['id']);
-    $results = DB::select('select * from admin where categories = 1');
-    $users = count($results);
+    
+    $users = DB::select('select * from admin where categories = 1');
+    
     // print_r($userdata['categories']);
     $resultsBlogs = blogs::all(); 
     $blogs = count($resultsBlogs);
@@ -289,7 +294,7 @@ else{
     
     
     $message = Session::get('message');
-    return view('Admin.AdminPanel')->with('message',$message)->with('products',$products)->with('userdata',$userdata)->with('users',$users)->with('blogs',$blogs);
+    return view('Admin.AdminPanel')->with('message',$message)->with('products',$products)->with('users',$users)->with('blogs',$blogs);
        
 }
 public function Adminedit(Request $request){
@@ -303,6 +308,11 @@ public function Adminedit(Request $request){
 else{
     return redirect('/loginuser');
 }
+$request->validate([
+    'name' => 'required',
+    'about_life' => 'required',
+    'heading' => 'required'
+]);
     $session = Session::get('user');
 $data = (array) $session[0];
 if($request->hasfile('testing')){
@@ -337,6 +347,11 @@ public function banner(Request $request){
 else{
     return redirect('/loginuser');
 }
+$request->validate([
+    'about_banner' => 'required',
+    'url' => 'required'
+]);
+
     $session = Session::get('user');
 $data = (array) $session[0];
 // print_r($_POST);
@@ -344,6 +359,7 @@ if($request->hasfile('product_banner')){
     // echo 'hlo';
     $file = $request->file('product_banner');
     $name = time().rand(1,100).'.'.$file->extension();
+    
     $file->move(public_path().'/products_images/', $name);  
     $image_path=url('products_images');
     $banner = banner::find(1);
@@ -411,6 +427,13 @@ public function message(){
     return view('Admin.Adminmessage')->with('data',$data);
 
 }
+public function messagenotification(){
+    $data = DB::table('Contact')->orderBy('created_at', 'desc')->limit(4)->get();
+   
+    return response()->json($data);
+
+}
+
 
     public function logout(){
         Session::flush();

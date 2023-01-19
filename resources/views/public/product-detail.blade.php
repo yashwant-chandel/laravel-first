@@ -14,7 +14,7 @@
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Home</a></li>
 									<li class="breadcrumb-item"><a href="#">Shop</a></li>
-									<li class="breadcrumb-item active" aria-current="page">{{$product['productname']}}</li>
+									<li class="breadcrumb-item active" aria-current="page">{{$product->productname}}</li>
 								</ol>
 							</nav>
 						</div>
@@ -25,17 +25,18 @@
 	</section>
 	<section class="product-gallery-section">
 		<div class="container">
+			
 			<div class="row">
 				<div class="col-md-5 gallery-part">
 					<div class="product-gallery wow fadeInUp">
-						<img class="card-img-top" src="{{$product['image_path'].'/'.$product['img']}}" alt="Card image cap">
+						<img class="card-img-top" src="{{$product->image_path.'/'.$product->img}}" alt="Card image cap">
 					</div>
 					
 				</div>
 
 				<div class="col-md-7 content-part">
 					<div class="product-content wow fadeInUp">
-						<h2>{{$product['productname']}}:{{$product['Short_description']}}</h2>
+						<h2>{{$product->productname}}:{{$product->Short_description}}</h2>
 						
 						<div class="review-wrapper">
 							<span class="reviews">
@@ -45,12 +46,12 @@
 								4.6 Review
 							</span>
 							<span class="stock">
-								{{$product['stock']}} Stock
+								{{$product->stock}} Stock
 							</span>
 						</div>
 						<div class="price-wrapper">
-						<h2 class=""><del>${{$product['price']}}</del></h2>
-							<h2>(Sale Price: ${{$product['sale_price']}})</h2>
+						<h2 class=""><del>${{$product->price}}</del></h2>
+							<h2>(Sale Price: ${{$product->sale_price}})</h2>
 						</div>
 						<div class="product-form wow fadeInUp">
 							<form>
@@ -70,13 +71,16 @@
 										<span class="plus">+</span>
 									</div>
 								</div>
+								<div class="response" id ="response">
+
+								</div>
 								<div class="button-wrapper">
 								<?php $session = Session::get('user');
 									// print_r($session[0]->id);
 									?>
-									<a href="" class=" btn dark" data-id="{{$product['id']}}" id="Addtocart"  style="pointer-events: <?php if(empty($session)){ echo 'none'; }?>;">
+									<a href="" class=" btn dark" data-id="{{$product->id}}" id="Addtocart"  style="pointer-events: <?php if(empty($session)){ echo 'none'; }?>;">
 									 Add to Cart</a>
-									<a href="#" data-id = "{{$product['id']}}" class="favourite btn light">Wishlist</a>
+									<a href="#" data-id = "{{$product->id}}" class="favourite btn light">Wishlist</a>
 								</div>
 							</form>
 						</div>
@@ -107,7 +111,7 @@
 				</ul>
 				<div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade show active" id="Description_tab" role="tabpanel" aria-labelledby="Description">
-						<?php echo $product['description']; ?>
+						<?php echo $product->description; ?>
 
 					</div>
 		<div class="tab-pane fade" id="Additional_information_tab" role="tabpanel" aria-labelledby="Additional_information">
@@ -115,7 +119,7 @@
 			<div class="container">
 				<div class="row text-center text-lg-start">
 				<?php 
-				$gallery = explode(",",$product['Gallery']);
+				$gallery = explode(",",$product->Gallery);
 				// print_r($gallery);
 				?>
 				@foreach($gallery as $g)

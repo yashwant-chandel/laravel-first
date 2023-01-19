@@ -22,7 +22,10 @@
   <link rel="shortcut icon" href="<?php echo url('images/favicon.png'); ?>" />
   
 </head>
+
+
 <body>
+  
   <div class="container-scroller">
     <div class="row p-0 m-0 proBanner" id="proBanner">
       <div class="col-md-12 p-0 m-0">
@@ -51,7 +54,7 @@
           </button>
         </div>
         <div>
-          <a class="navbar-brand brand-logo" href="">
+          <a class="navbar-brand brand-logo" href="{{url('adminview')}}">
             <img src="{{url('/img/logo.png')}}" alt="logo" />
           </a>
           <a class="navbar-brand brand-logo-mini" href="">
@@ -65,7 +68,8 @@
         <?php $session = Session::get('user');
                                  $data = (array) $session[0];
                                 //  print_r($data);
-                                ?>
+          
+          ?>
          <li class="nav-item d-none d-lg-block">
             <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
               <span class="input-group-addon input-group-prepend border-right">
@@ -74,6 +78,21 @@
               <input type="text" class="form-control">
             </div>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="icon-mail icon-lg"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
+             
+               <div id ="messagebox">
+
+               </div> 
+               <a class="dropdown-item py-3 border-bottom " href="<?php echo url('admin/message'); ?>" >
+               <button class="btn btn-dark btn-sm" > View all</button>
+              </a>
+            </div>
+          </li>
+
           <li class="nav-item dropdown d-none d-lg-block user-dropdown">
             <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
               <img class="img-xs rounded-circle" src="{{$data['img_url']}}/{{$data['img']}}" alt="Profile image"> </a>
@@ -256,7 +275,6 @@
             <div class="collapse" id="auth3">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="<?php echo url('Addbanner'); ?>">Add Banner</a></li>
-                
               </ul>
             </div>
           </li>
@@ -270,8 +288,35 @@
       
    
 
-    
+
+      
  <script>
+
+
+
+$(document).ready(function(){
+  $.ajax({
+			method: 'get',
+			url: '{{url('admin/message/notification')}}',
+			dataType: 'json',
+			success: function(response)
+			{
+				// console.log(response);
+				const divdata = [];
+				 $.each(response, function(key,value){
+          
+					html =  '<a class="dropdown-item preview-item py-3"><div class="preview-thumbnail"><i class="icon-mail icon-lg"></i></div><div class="preview-item-content" ></div><h6 class="preview-subject fw-normal text-dark mb-1">New message from '+value.name+'</h6></a>';
+					// console.log(html);
+					divdata.push(html);
+				 });
+				$('#messagebox').html(divdata);
+				//   $('.cartitemscount').html(response[0]);
+				//   $('.adminname').html(response[1].name);
+				
+			}
+		});	
+
+});
 
 
 

@@ -8,6 +8,7 @@ use App\Models\admin;
 use App\Models\products;
 use App\Models\Contact;
 use App\Models\banner;
+use App\Models\Cart;
 use Session;
 class Home extends Controller
 {
@@ -91,8 +92,28 @@ class Home extends Controller
         // Session::pull('whislist',$req->id);
         // print_r($req->id);
         return response()->json($whislist);
-
-
+    }
+    public function header(){
+        $session = Session::get('user');
+        $data = [];
+        if(isset($session)){
+            $id = $session[0]->id;
+            // print_r($id);
+        $cart = DB::table('Cart')->where('buyer_id',$id)->get();
+        
+        $cartitems = (count($cart));
+        // print_r($cartitems);
+        }else{
+            $cartitems =0;
+        }
+        array_push($data,$cartitems);
+        $foooterdata = DB::table('admin')->where('categories',0)->get();
+        foreach($foooterdata as $f){
+            $fdata = (array) $f;
+        }
+        // print_r($fdata);
+        array_push($data,$fdata);
+        return response()->json($data);
     }
 
 }

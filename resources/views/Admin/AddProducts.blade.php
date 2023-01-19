@@ -2,8 +2,14 @@
 @section('admin')
 
 <div class="container col-8">
+<?php if($message){ ?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{$message}}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<?php } ?>
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>{{$message}}</strong>
+
   <h3 class="text-dark">Add Products</h3>
 </div>
 @foreach ($errors->all() as $error)

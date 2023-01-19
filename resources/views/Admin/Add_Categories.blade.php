@@ -2,21 +2,30 @@
 @section('admin')
 
 <div class="container col-8">
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>{{$message}}</strong>
-  <h3 class="text-dark">Add Category</h3>
-  @foreach ($errors->all() as $error)
-       					 <div>{{ $error }}</div>
-   						 @endforeach
+<?php if($message){ ?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{$message}}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
+<?php } ?>
+
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong class="text-dark" >@foreach ($errors->all() as $error)
+       	<div>{{ $error }}</div>
+   	 @endforeach</strong>
+      <h3 class="text-dark">Add Category</h3> 
+</div>
+
 <div class="container col-12">
+
 <div class="card-body">
                   <form class="forms-sample" action="<?php echo url('addcategories'); ?>" method="post">
                   @csrf
                     <div class="form-group">
                       <input type="hidden" name="id" value="{{$id}}">
                       <label for="exampleInputUsername1">Catgory Name</label>
-                      <input type="text"  onload="convertToSlug(this.value)" onkeyup="convertToSlug(this.value)" class="form-control" id="exampleInputUsername1" name="category_name" >
+                      <input type="text"  onload="convertToSlug(this.value)" onkeyup="convertToSlug(this.value)" class="form-control" id="exampleInputUsername1" name="name" >
                     </div>
                     <div class="form-group">
                       <label for="slug-text">Slug</label>

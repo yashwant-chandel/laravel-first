@@ -13,12 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('banner', function (Blueprint $table) {
+        Schema::create('admin', function (Blueprint $table) {
             $table->id();
-            $table->string('banner_description');
-            $table->string('banner_img');
-            $table->string('url');
-            $table->integer('admin_id');
+            $table->string('Username');
+            $table->string('password');
+            $table->string('name');
+            $table->string('about_life');
+            $table->string('heading');
+            $table->string('about_profession');
+            $table->string('img');
+            $table->string('img_url');
+            $table->integer('categories');
             $table->timestamps();
         });
     }
@@ -30,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banner');
+        Schema::dropIfExists('admin');
     }
 };

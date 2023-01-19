@@ -68,7 +68,7 @@
 						    <input type="text" class="form-control" name="subject" id="subject" placeholder="subject*">
 						  </div>
 						  <div class="form-group">
-							<textarea class="form-control" id="info" name="message" placeholder="Give us a little detail so we can best help you and your needs!*"></textarea>
+							<textarea class=" form-control" id="info" name="message" placeholder="Give us a little detail so we can best help you and your needs!*"></textarea>
 						  </div>
 						  
 						  <button type="submit" class="btn">Submit</button>
@@ -92,4 +92,10 @@
                   )
 		wow.init();
 	</script>
+	<script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ckeditor').ckeditor();
+    });
+</script>
 @endsection

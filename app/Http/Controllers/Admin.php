@@ -45,9 +45,15 @@ class Admin extends Controller
         return redirect('/loginuser');
     }
 // print_r($_POST);
+
+$request->validate([
+    'name' => 'required|unique:Categories',
+    'slug' => 'required|unique:Categories', 
+    
+]);
 if(!empty($request->id)){
         $data = Categories::find($request->id);
-        $data->name = $request->category_name;
+        $data->name = $request->name;
         $data->slug = $request->slug;
         $data->parent_category = $request->parent_category;
         $data->save();
@@ -58,7 +64,7 @@ if(!empty($request->id)){
         }  
 }else{
         $data = new Categories;
-        $data->name = $request->category_name;
+        $data->name = $request->name;
         $data->slug = $request->slug;
         $data->parent_category = $request->parent_category;
         $data->save();
@@ -102,6 +108,10 @@ if(!empty($request->id)){
     else{
         return redirect('/loginuser');
     }
+    $request->validate([
+        'Tags_name' => 'required',
+        'slug' => 'required|unique:Tags', 
+    ]);
         // print_r($_POST);
         if(!empty($request->id)){
         $data = Tags::find($request->id);

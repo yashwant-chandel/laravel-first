@@ -1,10 +1,15 @@
 @extends('Admin/admin')
 @section('admin')
 
-      
+<?php if($message){ ?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{$message}}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<?php } ?>
       <div class="container col-8">
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>{{$message}}</strong>
+
         <h3 class="text-dark">Admin details</h3>
     </div>
         

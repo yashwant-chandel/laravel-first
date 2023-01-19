@@ -1,8 +1,13 @@
-@extends('Admin/AdminPanel')
+@extends('Admin/admin')
 @section('admin')
 
 <div class="container col-md-7">
-
+<?php if($message){ ?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{$message}}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<?php } ?>
 <?php
 
 // echo $id;
@@ -11,7 +16,7 @@ $session = Session::get('user');
 		$data = (array) $session[0];
 		// print_r($data);
 		// echo $data['id'];
-		print_r($message);
+		
 		?>
 		@foreach ($errors->all() as $error)
        					 <div>{{ $error }}</div>

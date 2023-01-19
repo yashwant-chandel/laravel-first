@@ -1,11 +1,12 @@
 @extends('Admin/admin')
 @section('admin')
 <div class="container col-8">
-  
 <div class="card-body">
   
   <?php print_r($success); ?>
-
+  @foreach ($errors->all() as $error)
+       					 <div>{{ $error }}</div>
+   						 @endforeach
                   <h2 class="card-title text-center">Upload Banner</h2>
                   <form class="forms-sample" action="<?php echo url('banner'); ?>" method="post" enctype="multipart/form-data">
                   @csrf

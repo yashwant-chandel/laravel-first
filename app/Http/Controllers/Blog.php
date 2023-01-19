@@ -34,7 +34,5 @@ class Blog extends Controller
         $data = DB::table('Blogs')->where('heading','like',$req->val.'%')->get();  
         return response()->json($data);
     }
-    public function productsearch(Request $req){
-        
-    }
+    
 }

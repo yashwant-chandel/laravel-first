@@ -25,9 +25,10 @@ Route::get('/cartview',[Admin::class,'cartview']);
 Route::get('/contact-page',[Home::class,'Contactus']);
 Route::post('/contactform',[Home::class,'contactmessage']);
 Route::get('/privacypolicy', function () {
-    return view('privacy-policy-page');
+    return view('Admin/testing');
 });
-
+Route::get('public/headerfooter',[Home::class,'header']);
+Route::get('admin/message/notification',[Adminpanel::class,'messagenotification']);
 Route::get('admin/message',[Adminpanel::class,'message']);
 Route::get('/loginuser',[Adminlogin::class,'index']);
 Route::post('/login',[Adminlogin::class,'login']);
@@ -48,7 +49,7 @@ Route::get('/blogs-page',[Blog::class,'index']);
 Route::get('/',[Home::class,'index']);
 Route::get('/products/{id}',[Shop::class,'products']);
 Route::get('/blogs-page/{id}',[Blog::class,'blogsview']);
-Route::get('/adminview',[Adminpanel::class,'adminview']);
+Route::get('/adminview',[Adminpanel::class,'Adminview']);
 Route::post('/banner',[Adminpanel::class,'banner']);
 Route::get('/Productsview',[Adminpanel::class,'edit']);
 Route::get('/Editblogs',[Adminpanel::class,'Editblogs']);
@@ -69,6 +70,9 @@ Route::get('deletecat/{id}',[Admin::class,'deletecategory']);
 Route::get('deletetag/{id}',[Admin::class,'deletetags']);
 Route::post('categorysort',[Shop::class,'categorysort']);
 Route::post('Tagsort',[Shop::class,'Tagsort']);
+
+Route::post('testing',[Shop::class,'testing']);
+Route::post('Products/search',[Shop::class,'Searchproducts']);
 
 
 
