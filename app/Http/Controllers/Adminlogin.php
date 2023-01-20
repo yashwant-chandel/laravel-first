@@ -11,6 +11,7 @@ use Session;
 class Adminlogin extends Controller
 {
     public function index(){
+       
         
         return view('public.Adminlogin');
     }
@@ -76,6 +77,18 @@ else{
         }
         
     }
+    public function Changepassword(Request $request){
+        $request->validate([
+            'password' => 'required',
+            'newpassword' => 'required|confirmed',
+            
+        ]);
+        $password = md5($request->password);
+        print_r($password);
+        
+
+    }
+
 }
 
 

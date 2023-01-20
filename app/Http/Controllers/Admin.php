@@ -28,9 +28,7 @@ class Admin extends Controller
         // print_r($response);
         $data = Categories::all();
         // print_r($data[0]);
-
-        
-        return view('Admin.Add_Categories')->with('message',$response)->with('data',$data)->with('id',$id);
+        return view('Admin.Add_Categories')->with('message',$response)->with('data',$data)->with('id',$id)->with('catdata',$catdata);
 
     }
     public function AddCategories(Request $request){
@@ -46,12 +44,13 @@ class Admin extends Controller
     }
 // print_r($_POST);
 
-$request->validate([
-    'name' => 'required|unique:Categories',
-    'slug' => 'required|unique:Categories', 
-    
-]);
+
 if(!empty($request->id)){
+    $request->validate([
+        'name' => 'required',
+        'slug' => 'required', 
+        
+    ]);
         $data = Categories::find($request->id);
         $data->name = $request->name;
         $data->slug = $request->slug;
@@ -63,6 +62,11 @@ if(!empty($request->id)){
             return redirect('Addcategories')->with('success','failed to update category');
         }  
 }else{
+    $request->validate([
+        'name' => 'required|unique:Categories',
+        'slug' => 'required|unique:Categories', 
+        
+    ]);
         $data = new Categories;
         $data->name = $request->name;
         $data->slug = $request->slug;
@@ -108,12 +112,13 @@ if(!empty($request->id)){
     else{
         return redirect('/loginuser');
     }
-    $request->validate([
-        'Tags_name' => 'required',
-        'slug' => 'required|unique:Tags', 
-    ]);
+    
         // print_r($_POST);
         if(!empty($request->id)){
+            $request->validate([
+                'Tags_name' => 'required',
+                'slug' => 'required', 
+            ]);
         $data = Tags::find($request->id);
         $data->name = $request->Tags_name;
         $data->slug = $request->slug;
@@ -126,6 +131,10 @@ if(!empty($request->id)){
         }
     }
     else{
+        $request->validate([
+            'Tags_name' => 'required',
+            'slug' => 'required|unique:Tags', 
+        ]);
         $data = new Tags;
         $data->name = $request->Tags_name;
         $data->slug = $request->slug;
@@ -209,6 +218,7 @@ if(!empty($request->id)){
             $cart = Cart::find($request->id);
             $cart->quantity = $request->qty;
             $cart->total_price = $cart->price*$request->qty;
+            $cart->total_original_price = $cart->original_price*$request->qty;
             $cart->save();
             print_r($request->id);
          }
@@ -217,43 +227,23 @@ if(!empty($request->id)){
     }
     public function cart(Request $request){
         $session = Session::get('user');
-    //    print_r($request->qty);
+ 
             if($request->id){
 
                 $data = products::find($request->id);
-                // print_r($request->qty);
-            //     $cart = session()->get('cart', []);
-            //     if(isset($cart[$request->id])) {
-            //         $cart[$request->id]['quantity']++;
-            //     }  else{ $cart[$request->id] = [
-            //         "productname" => $product->productname,
-            //         "image" => $product->img,
-            //         "slug" => $product->Slug,
-            //         "sku" => $product->sku,
-            //         "price" => $product->price,
-            //         "total_quantity" => $product->stock,
-            //         "quantity" => $request->qty
-            //     ];
-            // }
-            // Session::put('cart', $cart);
-
-            //     return response()->json($cart);
                 
-
                 $pid = DB::table('Cart')->where('product_id', $data['id'])->where('buyer_id',$session[0]->id)->value('id');
                 if(!empty($pid)){
-                    // print_r($request->id);
-                    $cart = Cart::find($pid);
-                    $cart->quantity = $request->qty;
-                    $cart->total_price = $data['sale_price']*$request->qty;
-                    $cart->save();
-                    return response()->json('succesfully updated cart');
+                  
+                    return response()->json('already in a cart');
                 } 
                 else{
                 $cart = new Cart;
                 $cart->name = $data['productname'];
                 $cart->Sku = $data['sku'];
                 $cart->quantity = $request->qty;
+                $cart->original_price = $data['price'];
+                $cart->total_original_price = $data['price']*$request->qty;
                 $cart->price = $data['sale_price'];
                 $cart->total_price = $data['sale_price']*$request->qty;
                 $cart->img = $data['img'];
@@ -263,7 +253,7 @@ if(!empty($request->id)){
                 $cart->img = $data['img'];
                 $cart->save();
                 if($cart->save()){
-                    return response()->json('successfully added to cart item');
+                    return response()->json('successfully added to cart');
                 }
                 
             }

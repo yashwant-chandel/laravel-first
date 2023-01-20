@@ -3,7 +3,15 @@
 
 
 	<!-- banner section start here  -->
+	<?php  $results = Session::get('success');
+							if(isset($results)){?>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<strong>{{$results}}</strong> 
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<?php	} ?>
 	<section class="banner-wrapper">
+	
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-12">
@@ -246,7 +254,7 @@
 							<a href="#">{{$d->productname}}:{{$d->Short_description}}</a>
 							<p><i class="fa-solid fa-star"></i> 5.6</p>
 							<div class="feature-btn text-center">
-								<button type="button" class="btn btn-light"><a href="{{url('products')}}/{{$d->id}}">View Book</a></button>
+								<button type="button" class="btn btn-light"><a href="{{url('products')}}/{{$d->Slug}}">View Book</a></button>
 							</div>
 						</div>
 						@endforeach

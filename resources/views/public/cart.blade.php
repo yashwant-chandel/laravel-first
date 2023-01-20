@@ -23,10 +23,11 @@
 							<?php
 							$session = Session::get('user');
 							// print_r($session);
-							$total = count($cartdata);
-						
 							
-							 $data = array(); ?>
+							
+							 $data = array();
+							 $total_original_price = array();
+							 ?>
 							@foreach($cartdata as $d)
 							<tr>
 								<td data-th="Product">
@@ -56,6 +57,8 @@
 								</td>
 								
 								<td data-th="Price">
+									<span class="price"><del>${{$d->total_original_price}}</del></span><br>
+									<?php array_push($total_original_price,$d->total_original_price); ?>
 									<span class="price">${{$d->total_price}}</span>
 								</td>
 								<td data-th="Delete">
@@ -75,7 +78,7 @@
 							
 						</tbody>
 						<?php  
-						
+						$without_discount = array_sum($total_original_price);
 						$total_price = array_sum($data);
 						?>
 
@@ -86,7 +89,8 @@
 					<div class="subtotal">
 						<table>
 							<tbody>
-								<tr><th>Subtotal</th><td>$<?php echo $total_price; ?></td></tr>
+								<tr><th>Subtotal</th><td><del>$<?php echo $without_discount; ?></del></td></tr>
+								<tr><th>Discount</th><td>$<?php echo $without_discount-$total_price; ?></td></tr>
 								
 							</tr>
 						</tbody>

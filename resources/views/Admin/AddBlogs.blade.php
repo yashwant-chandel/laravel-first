@@ -29,6 +29,7 @@ $session = Session::get('user');
 							<div class="form-group">
 								<input type="hidden" name="id" value="{{$id}}">
 								<input type="hidden" name="posted_by" value="<?php echo $data['name']; ?>" Required>
+								
 							<label for="heading">Heading</label>
 						    <input type="text" class="form-control" name="heading" id="heading" placeholder="" Required>
 						  </div>
@@ -43,7 +44,8 @@ $session = Session::get('user');
 						  </div>
 						  <div class="form-group">
 						  <label for="exampleInputName1">Blog image</label>
-						   <input type="file" class="form-control" name="project_image" id="project_image" Required>
+						   <input type="file" class="form-control" name="img" id="project_image" Required>
+						   <span style="font-size:10px;" class="text-danger">*Required 884 X 500 px</span>
 						  </div>
 						  <button type="submit" class="btn btn-sm btn-success">Submit</button>
 						</form>

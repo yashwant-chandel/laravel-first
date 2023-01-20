@@ -37,22 +37,25 @@
 							<h3>EMAIL</h3>
 							<ul>
 								<li><a href="mailto:{{$admindata[0]->Username}}"> <?php echo $admindata[0]->Username; ?></a></li>
-								
 							</ul>
 						</div>
 					</div>
 				</div>
 
    	<div class="col-md-7 form-col">
-					<div class="form-box">
+					<div class="form-box" id ="form-box">
 						<h2 class="text-center hide-on-mobile wow fadeInUp">Get In Touch</h2>
 						<div class="contact-form wow fadeInUp">
 						@foreach ($errors->all() as $error)
        					 <div>{{ $error }}</div>
    						 @endforeach
-						 <?php
-						 echo $response;
-						 ?>
+							<?php  $results = Session::get('success');
+							if(isset($results)){?>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<strong>{{$results}}</strong> 
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<?php	} ?>
 						<form method="post" action="<?php echo url('contactform');?>">
 						@csrf
 							<div class="form-group">
@@ -71,7 +74,7 @@
 							<textarea class=" form-control" id="info" name="message" placeholder="Give us a little detail so we can best help you and your needs!*"></textarea>
 						  </div>
 						  
-						  <button type="submit" class="btn">Submit</button>
+						  <button type="submit" class="btn" id ="btn-msg">Submit</button>
 						</form>
 						</div>
 					</div>
@@ -81,6 +84,8 @@
 	</div>
 </section>
 	<script>
+	
+
 		wow = new WOW(
 		{
                       boxClass:     'wow',      // default
@@ -92,10 +97,5 @@
                   )
 		wow.init();
 	</script>
-	<script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.ckeditor').ckeditor();
-    });
-</script>
+
 @endsection

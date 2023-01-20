@@ -90,6 +90,7 @@
 			</div>
 		</nav>
 	</header>
+	
 	<!-- Nav bar section end here -->
 @yield('insert')
 <?php ?>
@@ -118,6 +119,12 @@
 							<li>
 								<a href="<?php echo url('contact-page'); ?>">Contact Us</a>
 							</li>
+							<?php $session = Session::get('user');
+							if(isset($session)){ ?>
+							<li>
+								<a href="<?php echo url('contact-page'); ?>">Change Password</a>
+							</li>
+							<?php } ?>
 						</ul>
 					</div>
 				</div>
@@ -129,7 +136,7 @@
 								<a href="<?php echo url('privacypolicy'); ?>">Privacy Policy</a>
 							</li>
 							<li>
-								<a href="privacypolicy">Cookies Policy</a>
+								<a href="<?php echo url('landing-page'); ?>" target="_blank" rel="noopener noreferrer">Landing Page</a>
 							</li>
 							<li>
 								<a href="privacypolicy">Terms and Conditions</a>
@@ -255,7 +262,7 @@ $('#Addtocart').click(function(event){
 		success: function(response)
                 {
                 //    console.log(response);
-				   html = '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Succesfully added to cart</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+				   html = '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>'+response+'</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                $('#response').html(html);
 			// console.log(html);
 				// alert('successfully added to cart');
@@ -275,7 +282,7 @@ $('.Addtocarthome').click(function(event){
 		data: {id:sid, qty:1, _token: '{{csrf_token()}}'},
 		success: function(response)
                 {
-				html = '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Succesfully added to cart</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+				html = '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>'+response+'</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                $('.results').html(html);
 			}
 	});
@@ -310,12 +317,13 @@ $(document).ready(function(){
 					const divdata = [];
 				 $.each(response.data, function(key,value){
 					
-					html = '<div class="col-lg-3 col-md-6 col-12"><div class="card"><div class="shop-img"><a href="" class="product-thumb"><img class="card-img-top" src="'+value.image_path+'/'+value.img+'" alt="Card image cap"></a></div><div class="card-body text-center"><h4 id="pname">'+value.productname+'</h4><span><del>$'+value.price+'</del> <span class="text-dark">$'+value.sale_price+'</span></span><hr><div class="feature-btn text-center"><a href="{{url('/products/')}}/'+value.id+'"class="btn btn-light">View Product</a></div></div></div></div>';
-					console.log(html);
+					html = '<div class="col-lg-3 col-md-6 col-12"><div class="card"><div class="shop-img"><a href="" class="product-thumb"><img class="card-img-top" src="'+value.image_path+'/'+value.img+'" alt="Card image cap"></a></div><div class="card-body text-center"><h4 id="pname">'+value.productname+'</h4><span><del>$'+value.price+'</del> <span class="text-dark">$'+value.sale_price+'</span></span><hr><div class="feature-btn text-center"><a href="{{url('/products/')}}/'+value.Slug+'"class="btn btn-light">View Product</a></div></div></div></div>';
+					// console.log(html);
 					divdata.push(html);
 				 });
 				//  console.log(divdata);
 				 $('.productssection').html(divdata);
+				 $('#totalproducts').html('Showing '+divdata.length+' results ');
                 }
 	});
 });
@@ -338,12 +346,16 @@ $(document).ready(function(){
 				const divdata = [];
 				 $.each(response, function(key,value){
 					
-					html = '<div class="col-lg-3 col-md-6 col-12"><div class="card"><div class="shop-img"><a href="" class="product-thumb"><img class="card-img-top" src="'+value.image_path+'/'+value.img+'" alt="Card image cap"></a></div><div class="card-body text-center"><h4 id="pname">'+value.productname+'</h4><span><del>$'+value.price+'</del> <span class="text-dark">$'+value.sale_price+'</span></span><hr><div class="feature-btn text-center"><a href="{{url('/products/')}}/'+value.id+'"class="btn btn-light">View Product</a></div></div></div></div>';
+					html = '<div class="col-lg-3 col-md-6 col-12"><div class="card"><div class="shop-img"><a href="" class="product-thumb"><img class="card-img-top" src="'+value.image_path+'/'+value.img+'" alt="Card image cap"></a></div><div class="card-body text-center"><h4 id="pname">'+value.productname+'</h4><span><del>$'+value.price+'</del> <span class="text-dark">$'+value.sale_price+'</span></span><hr><div class="feature-btn text-center"><a href="{{url('/products/')}}/'+value.Slug+'"class="btn btn-light">View Product</a></div></div></div></div>';
 					// console.log(html);
 					divdata.push(html);
 				 });
 				// //  console.log(divdata);
 				 $('.productssection').html(divdata);
+				 console.log(divdata.length);
+				//  countproducts = 'Showing All'+divdata.length+';
+				 $('#totalproducts').html('Showing '+divdata.length+' results ');
+
                 }
 		});
 	});
@@ -361,8 +373,9 @@ $(document).ready(function(){
 			data: {id:id, _token: '{{csrf_token()}}'},
 			success: function(response)
 			{
-				console.log(response);
-			}
+			html = '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Added to favourite</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+		$('.results').html(html);
+		}
 
 
 		})
@@ -383,14 +396,19 @@ $(document).ready(function(){
 			data: {val:val, _token: '{{csrf_token()}}'},
 			success: function(response)
 			{
+				console.log(response);
 				const uldata = [];
 				$.each(response, function(key,value){
-				html = '<li class="list-group-item"><img src="'+value.image_path+'/'+value.img+'" class="" style="width:50%;" alt="">'+value.heading+'</li><a href="{{url('/blogs-page/')}}/'+value.id+'" class="btn btn-light text-dark">Read More</a>';
+					
+				html = '<div class="card"><div class="blog-img"><img src="{{url('products_images')}}/'+value.img+'" class="card-img-top" alt="..."></div><div class="card-body"><small>'+value.posted_by+'|  '+value.created_at+'</small><h5><a href="#">'+value.heading+'</a></h5><p></p><div class="feature-btn"><button type="button" class="btn btn-light text-dark"><a href="{{url('blogs-page')}}/'+value.Slug+'">Read More</a></button></div></div></div>';
 					uldata.push(html);
 				
 				});
 				// console.log(uldata);
 				$('.Search_panel').html(uldata);
+				$('#blogcount').html('Showing '+uldata.length+' results');
+				// console.log(response);
+				
 			}
 
 
@@ -412,12 +430,13 @@ $(document).ready(function(){
 				  const divdata = [];
 				 $.each(response, function(key,value){
 					
-					html = '<div class="col-lg-3 col-md-6 col-12"><div class="card"><div class="shop-img"><a href="" class="product-thumb"><img class="card-img-top" src="'+value.image_path+'/'+value.img+'" alt="Card image cap"></a></div><div class="card-body text-center"><h4 id="pname">'+value.productname+'</h4><span><del>$'+value.price+'</del> <span class="text-dark">$'+value.sale_price+'</span></span><hr><div class="feature-btn text-center"><a href="{{url('/products/')}}/'+value.id+'"class="btn btn-light">View Product</a></div></div></div></div>';
+					html = '<div class="col-lg-3 col-md-6 col-12"><div class="card"><div class="shop-img"><a href="" class="product-thumb"><img class="card-img-top" src="'+value.image_path+'/'+value.img+'" alt="Card image cap"></a></div><div class="card-body text-center"><h4 id="pname">'+value.productname+'</h4><span><del>$'+value.price+'</del> <span class="text-dark">$'+value.sale_price+'</span></span><hr><div class="feature-btn text-center"><a href="{{url('/products/')}}/'+value.Slug+'"class="btn btn-light">View Product</a></div></div></div></div>';
 					// console.log(html);
 					divdata.push(html);
 				 });
 				// //  console.log(divdata);
 				 $('.productssection').html(divdata);
+				 $('#totalproducts').html('Showing '+divdata.length+' results ');
 			}
 		});
 	});	

@@ -12,7 +12,7 @@
                   @csrf
                     <div class="form-group">
                       <label for="exampleInputUsername1">About</label>
-                      <input type="text" class="form-control" id="exampleFormControlInput1" name="about_banner" Required >
+                      <input type="text" class="form-control" id="exampleFormControlInput1" name="about_banner" maxlength="50" Required >
                     </div>
                     <div class="form-group">
                       <label for="slug-text">url</label>
@@ -20,7 +20,8 @@
                     </div>
                     <div class="form-group">
                       <label for="slug-text">Product Image</label>
-                      <input type="file" class="form-control" id="exampleFormControlInput1" name="product_banner" Required>
+                      <input type="file" class="form-control" id="exampleFormControlInput1" name="banner_img" Required>
+                      <span style="font-size:10px;" class="text-danger">*Required 1920 X 466 px</span>
                     </div>
                     <button type="submit" id="btn" class="btn btn-success btn-sm">Submit</button>
                    

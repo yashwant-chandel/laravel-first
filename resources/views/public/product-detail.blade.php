@@ -55,14 +55,7 @@
 						</div>
 						<div class="product-form wow fadeInUp">
 							<form>
-								<div class="form-group">
-									<label>Language:</label>
-									<select class="form-select" id ="language" aria-label="Default select example">
-										<option selected>English</option>
-										<option value="1">English</option>
-										<option value="2">Spanish</option>
-									</select>
-								</div>
+								
 								<div class="form-group">
 									<label>Quantity:</label>
 									<div class="number">
@@ -134,20 +127,7 @@
 					<!-- galler section end-->
 		</div>
 					<div class="tab-pane fade" id="Reviews_tab" role="tabpanel" aria-labelledby="Reviews-tab">
-						<p><b>Jack Rosenthal writes "The Ultimate Guide to Teenage Investing"</b><br>
-						Jack Rosenthal is a 19 year-old entrepreneur and investor. He is the founder of the Young Investors Club, LLC, one of the largest teen investment organizations in the world with close to 100 members and over $115,000+ under management. In addition, he also manages his own private investment fund for himself and select outside investors. He has personally mentored 100+ students on investing and is considered an authority on teenage investing.</p>
-						<div class="info-list">
-							<h6>In this book you will learn:</h6>
-							<ul>
-								<li>How, why and where to invest?</li>
-								<li>How to earn money to invest?</li>
-								<li>Key terms every investor should know</li>
-								<li>How to analyze a stock through the Yahoo Finance portal</li>
-								<li>How Jack founded one of the largest teen investment clubs</li>
-								<li>What metrics and techniques Jack uses to look for investments for his own investment portfolio</li>
-							</ul>
-						</div>
-						<p><b>Note from the author:</b> I've spent the last few months writing this book and detailing the EXACT investment techniques that I personally use. I highly recommend this guide to anyone from the ages of 13-21 who is looking to start or grow their own investment portfolio.</p>
+						
 					</div>
 				</div>
 			</div>

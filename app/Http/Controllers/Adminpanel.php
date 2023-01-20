@@ -53,6 +53,7 @@ class Adminpanel extends Controller
                 $gallery = implode(",",$data);
                 // print_r($gallery);
             }
+            
                 // print_r($request->Tags);
                 $category = implode("," ,$request->category);
                 // print_r($category);
@@ -60,29 +61,31 @@ class Adminpanel extends Controller
                 // print_r($tags);
                 // print_r($_POST);
                 if(!empty($request->id)){
+                    $request->validate([
+                        'name' => 'required|unique',
+                        'description' => 'required',
+                        'price' => 'required',
+                        'slug' => 'required',
+                        'category' => 'required',
+                        'short_description' => 'required',
+                        'price' => 'required',
+                        'sale_price' => 'required',
+                        'img'=> 'required|image|mimes:jpeg,png,jpg|max:1000|dimensions:width=543,height=803',
+                        
+                    ]);
                     // echo 'hlo';
-                    if($request->hasfile('image')){
+                    if($request->hasfile('img')){
                         // echo 'hlo';
-                        $file = $request->file('image');
+                        $file = $request->file('img');
                         $name = time().rand(1,100).'.'.$file->extension();
                         $file->move(public_path().'/products_images/', $name);  
         
                 $image_path=url('products_images');
-                $request->validate([
-                    'name' => 'required',
-                    'description' => 'required',
-                    'price' => 'required',
-                    'slug' => 'required',
-                    'category' => 'required',
-                    'short_description' => 'required',
-                    'price' => 'required',
-                    'sale_price' => 'required',
-                    
-                ]);
+                
                     $products = products::find($request->id);
                     // print_r($products);
                     $products->productname = $request->name;
-                    $products->Slug = $request->slug;
+                    $products->Slug = $request->Slug;
                     $products->categories = $category;
                     $products->Tags = $tags;
                     $products->description = $request->description;
@@ -106,30 +109,31 @@ class Adminpanel extends Controller
             }
         }
         else{
-        if($request->hasfile('image')){
+            $request->validate([
+                'name' => 'required',
+                'description' => 'required',
+                'price' => 'required',
+                'Slug' => 'required|unique:products',
+                'category' => 'required',
+                'short_description' => 'required',
+                'price' => 'required',
+                'sale_price' => 'required',
+                'img'=> 'required|image|mimes:jpeg,png,jpg|max:1000|dimensions:width=543,height=803',
+                
+            ]);
+        if($request->hasfile('img')){
             // echo 'hlo';
-            $file = $request->file('image');
+            $file = $request->file('img');
             $name = time().rand(1,100).'.'.$file->extension();
             $file->move(public_path().'/products_images/', $name);  
     
             $image_path=url('products_images');
             // print_r($name);
-            $request->validate([
-            'name' => 'required|unique:products',
-            'description' => 'required',
-            'price' => 'required',
-            'sku' => 'required|unique:products',
-            'slug' => 'required|unique:products',
-            'category' => 'required',
-            'short_description' => 'required',
-            'price' => 'required',
-            'sale_price' => 'required',
-            
-        ]);
+        
         // $sku = $request->name.time().rand(1,100)
                 $products = new products();
                 $products->productname = $request->name;
-                $products->Slug = $request->slug;
+                $products->Slug = $request->Slug;
                 $products->categories = $category;
                 $products->Tags = $tags;
                 $products->sku = $request->sku;
@@ -179,6 +183,11 @@ class Adminpanel extends Controller
             return  redirect('loginuser');
         }
     } 
+    if($id !==null){
+        $blog = blogs::find($id);
+    }else{
+        $blog = null;
+    }
         $message = Session::get('success');
             // print_r($message);
             // echo $id;
@@ -189,7 +198,7 @@ class Adminpanel extends Controller
         if(empty($session)){
             return redirect('/');
         }
-        return view('Admin/AddBlogs')->with('message',$message)->with('id',$id);
+        return view('Admin/AddBlogs')->with('message',$message)->with('id',$id)->with('blogdata',$blog);
     }
     public function Addblogs(Request $request){
         $session = Session::get('user');
@@ -205,12 +214,13 @@ class Adminpanel extends Controller
     $request->validate([
         'heading' => 'required',
         'description' => 'required',
-        'short_notice' => 'required'
+        'short_notice' => 'required',
+        'img' => 'required|image|mimes:jpeg,png,jpg|max:1000|dimensions:width=884,height=500',
     ]);
 
         if(!empty($request->id)){
-            if($request->hasfile('project_image')){
-                $file = $request->file('project_image');
+            if($request->hasfile('img')){
+                $file = $request->file('img');
                 $name = time().rand(1,100).'.'.$file->extension();
                 $file->move(public_path().'/products_images/', $name); 
                 $image_path=url('products_images');
@@ -236,9 +246,9 @@ class Adminpanel extends Controller
         }
         else{
             // echo 'not done';
-            if($request->hasfile('project_image')){
+            if($request->hasfile('img')){
                 // echo 'hlo';
-                $file = $request->file('project_image');
+                $file = $request->file('img');
                 // print_r($file);
                 $name = time().rand(1,100).'.'.$file->extension();
                 // print_r($name);
@@ -249,6 +259,7 @@ class Adminpanel extends Controller
                 
                     $blog = new blogs();
                     $blog->heading = $request->heading;
+                    $blog->Slug = 'blog-'.time();
                     $blog->description = $request->description;
                     $blog->short_notice	= $request->short_notice;
                     $blog->posted_by = $request->posted_by;
@@ -349,15 +360,17 @@ else{
 }
 $request->validate([
     'about_banner' => 'required',
-    'url' => 'required'
+    'url' => 'required',
+    'banner_img' => 'required|image|mimes:jpeg,png,jpg|max:1000|dimensions:width=1920,height=466',
+    
 ]);
 
     $session = Session::get('user');
 $data = (array) $session[0];
 // print_r($_POST);
-if($request->hasfile('product_banner')){ 
+if($request->hasfile('banner_img')){ 
     // echo 'hlo';
-    $file = $request->file('product_banner');
+    $file = $request->file('banner_img');
     $name = time().rand(1,100).'.'.$file->extension();
     
     $file->move(public_path().'/products_images/', $name);  

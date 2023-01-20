@@ -11,17 +11,17 @@ class Blog extends Controller
         // echo 'hlo';
         
         
-        $results = Blogs::orderBy('created_at', 'desc')->paginate(8);
-        $data = DB::select('select * from Blogs ORDER BY created_at DESC limit 5;');
+        $results = Blogs::orderBy('created_at', 'desc')->paginate(6);
+        $data = DB::select('select * from Blogs ORDER BY created_at DESC limit 3;');
         // print_r($results);
         return view('public.blogs-page')->with('results',$results)->with('data',$data);
 
     }
-    public function blogsview($id){
-        // print_r($id);
-        $blog = Blogs::find($id);
-        // echo 'hlo';
-        // print_r($blog);
+    public function blogsview($slug){
+        
+        $blog = Blogs::where('Slug',$slug)->get();
+        
+       
         return view('public.blogs-detail-page')->with('blog',$blog);
     }
     public function deleteblogs($id){

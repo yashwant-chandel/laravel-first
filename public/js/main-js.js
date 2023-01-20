@@ -168,3 +168,7 @@ function gridList(e) {
 $(document).on("click", ".btn-grid", gridList);
 $(document).on("click", ".btn-list", showList);
 
+
+
+
+

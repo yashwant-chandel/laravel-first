@@ -33,17 +33,17 @@
 					<div class="blogcontent-wreap">
 						<div class="card mb-0">
 							<div class="blog-imgb">
-								<img src="{{url($blog['image_path'])}}/{{$blog['img']}}" class="card-img-top" alt="...">
+								<img src="{{url($blog[0]->image_path)}}/{{$blog[0]->img}}" class="card-img-top" alt="...">
 							</div>
 							<div class="card-body">
-								<small>{{$blog['posted_by']}}  |  {{$blog['created_at']}}</small>
-								<h5>{{$blog['heading']}}</h5>
+								<small>{{$blog[0]->posted_by}}  |  {{$blog[0]->created_at}}</small>
+								<h5>{{$blog[0]->heading}}</h5>
 								<p>
-								<?php echo $blog['description']; ?>	
+								<?php echo $blog[0]->description; ?>	
 								</p>
 								<div class="cort-wreap">
 									<h3>
-									<?php echo $blog['short_notice']; ?>
+									<?php echo $blog[0]->short_notice; ?>
 									</h3>
 								</div>
 								<p>

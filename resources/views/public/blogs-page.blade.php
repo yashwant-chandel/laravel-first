@@ -31,10 +31,11 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-12">
 					<div class="blogcontent-wreap">
 						<h2>Latest posts</h2>
+						<b><h5 id ="blogcount">Showing all {{count($results)}} results</h5></b>
 					</div>
 				</div>
 				<div class="col-lg-8 col-md-8 col-sm-12 col-12">
-					<div class="blogcontent-wreap">
+					<div class="Search_panel blogcontent-wreap">
 						 @foreach($results as $d)
 						<div class="card">
 							<div class="blog-img">
@@ -46,7 +47,7 @@
 								<p>
 															</p>
 								<div class="feature-btn">
-									<button type="button" class="btn btn-light text-dark"><a href="{{url('blogs-page')}}/{{$d->id}}">Read More</a></button>
+									<button type="button" class="btn btn-light text-dark"><a href="{{url('blogs-page')}}/{{$d->Slug}}">Read More</a></button>
 								</div>
 							</div>
 						</div>
@@ -63,21 +64,18 @@
 							</div>
 						</form>
 						<hr>
-						<div class="list-wrapper">
-							<ul class="Search_panel list-group list-group-flush">
-								
-							</ul>
-						</div>
-						
+
 						<div class="list-wrapper">
 							<h4>Recent Posts</h4>
 							<ul class="list-group list-group-flush">
 								
 								@foreach($data as $d)
+								<a href="{{url('blogs-page')}}/{{$d->Slug}}" class="mt-3" style="">
 								<li class="list-group-item">
 									<img src="{{$d->image_path}}/{{$d->img}}" class="" style=" max-width: 50%; height: auto;" alt="">
 								<?php echo $d->heading; ?>
 								</li>
+								</a>
 								@endforeach
 							</ul>
 						</div>
@@ -90,3 +88,5 @@
 
 	
 	@endsection
+
+	

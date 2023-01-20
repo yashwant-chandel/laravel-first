@@ -8,8 +8,8 @@ use App\Models\products;
 use App\Models\banner;
 use App\Models\Categories;
 use App\Models\Tags;
-use Image;
-use file;
+
+
 
 class Shop extends Controller
 {
@@ -34,6 +34,7 @@ class Shop extends Controller
          
       if(!empty($data)){
          $childdata = [];
+         
          foreach($data as $d){
           $query =  DB::table('products')->orwhere('categories',$d->id)->paginate(12);
           foreach($query as $q){
@@ -86,10 +87,7 @@ foreach($results as $r){
       $blog->delete();
       return redirect('Productsview')->with('success','successfully deleted record');
    }
-   public function testing(Request $request){
-      
-
-   }
+  
 
    
    

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\Shop;
 use App\Http\Controllers\Blog;
 use App\Http\Controllers\Home;
+use App\Http\Controllers\Authh;
 use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,10 @@ Route::get('/cartview',[Admin::class,'cartview']);
 Route::get('/contact-page',[Home::class,'Contactus']);
 Route::post('/contactform',[Home::class,'contactmessage']);
 Route::get('/privacypolicy', function () {
-    return view('Admin/testing');
+    return view('privacy-policy-page');
+});
+Route::get('landing-page',function(){
+    return view('Landing-page');
 });
 Route::get('public/headerfooter',[Home::class,'header']);
 Route::get('admin/message/notification',[Adminpanel::class,'messagenotification']);
@@ -48,7 +52,7 @@ Route::get('/shop/{id?}',[Shop::class,'index']);
 Route::get('/blogs-page',[Blog::class,'index']);
 Route::get('/',[Home::class,'index']);
 Route::get('/products/{id}',[Shop::class,'products']);
-Route::get('/blogs-page/{id}',[Blog::class,'blogsview']);
+Route::get('/blogs-page/{slug}',[Blog::class,'blogsview']);
 Route::get('/adminview',[Adminpanel::class,'Adminview']);
 Route::post('/banner',[Adminpanel::class,'banner']);
 Route::get('/Productsview',[Adminpanel::class,'edit']);
@@ -70,11 +74,8 @@ Route::get('deletecat/{id}',[Admin::class,'deletecategory']);
 Route::get('deletetag/{id}',[Admin::class,'deletetags']);
 Route::post('categorysort',[Shop::class,'categorysort']);
 Route::post('Tagsort',[Shop::class,'Tagsort']);
-
-Route::post('testing',[Shop::class,'testing']);
 Route::post('Products/search',[Shop::class,'Searchproducts']);
-
-
-
-
-
+Route::get('user/changepassword',function(){
+ return view('public.changepassword');
+});
+Route::post('user/passwordchange',[Adminlogin::class,'Changepassword']);

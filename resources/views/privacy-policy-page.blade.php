@@ -1,56 +1,7 @@
 @extends('home')
 @section('insert')
 	<!-- Nav bar section start here -->
-	<header class="navbar-wrapper wow fadeInUp">
-		<nav class="navbar logo navbar-expand-lg navbar-light">
-			<div class="container">
-				<a class="navbar-brand" href="index.html">
-					<img src="img/logo.png" class="img-fluid" alt="">
-				</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-					<span class="navbar-toggler-icon"></span>
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav ms-auto mb-0">
-						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="index.html">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="about-page.html">About Author</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="blogs-page.html">Blogs</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="contact-us.html">Contact Us</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Sign Up</a>
-						</li>
-						<div class="nav-icon">
-							<ul class="list-unstyled d-flex mb-0">
-								<li>
-									<a href="#"><i class="bi bi-heart"></i>
-										<span>0</span>
-									</a>
-								</li>
-								<li>
-									<a href="#"><i class="bi bi-cart"></i>
-										<span>0</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</ul>
-					<form class="d-flex">
-						<a href="shop-page.html" type="button" class="btn btn-dark button--wapasha button--round-s" type="submit">Shop</a>
-					</form>
-				</div>
-			</div>
-		</nav>
-	</header>
+	
 	<!-- Nav bar section end here -->
 
 	<!-- banner section start here  -->
@@ -246,78 +197,5 @@
 	<!-- Privacy Policy section end here  -->
 
 	<!-- Footer section start here  -->
-	<footer class="footer-wrapper">
-		<div class="container">
-			<div class="row footer-wreap">
-				<div class="col-lg-3 col-md-3 col-sm-6 col-12">
-					<div class="footer-content wow fadeInUp">
-						<div class="logo">
-							<a class="navbar-brand" href="index.html">Jack Rosenthal <p>Serial Entrepreneur, Investor &amp; Author</p></a>
-						</div>
-						<p>
-							If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
-						</p>
-					</div>
-				</div>
-				<div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6 col-12">
-					<div class="footer-content wow fadeInUp">
-						<h4>Useful Links</h4>
-						<ul class="list-unstyled">
-							<li>
-								<a href="about-page.html">About Author</a>
-							</li>
-							<li>
-								<a href="shop-page.html">Shop</a>
-							</li>
-							<li>
-								<a href="blogs-page.html">Blogs</a>
-							</li>
-							<li>
-								<a href="contact-us.html">Contact Us</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6 col-12">
-					<div class="footer-content wow fadeInUp">
-						<h4>Legal</h4>
-						<ul class="list-unstyled">
-							<li>
-								<a href="privacy-policy-page.html">Privacy Policy</a>
-							</li>
-							<li>
-								<a href="#">Cookies Policy</a>
-							</li>
-							<li>
-								<a href="#">Terms and Conditions</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6 col-12">
-					<div class="footer-content wow fadeInUp">
-						<div class="btn-wrapper">
-							<button type="button" class="btn btn-light">#Follow us</button>
-						</div>
-						<ul class="social-icon d-flex list-unstyled">
-							<li>
-								<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-							</li>
-							<li>
-								<a href="#"><i class="fa-brands fa-instagram"></i></a>
-							</li>
-							<li>
-								<a href="#"><i class="fa-brands fa-twitter"></i></a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="footer-buttom">
-			<div class="text-center wow fadeInUp">
-				<h6 style="color: #fff;" class="mb-0">Jack Rosenthal - © 2022 All Rights Reserved</h6>
-			</div>
-		</div>
-	</footer>
+	
 @endsection

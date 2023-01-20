@@ -34,7 +34,7 @@
 				<div class="shopttop-btn">
 					<button class="btn btn-dark btn-grid"><i class="fa-solid fa-grip"></i></button>
 					<button class="btn btn-dark btn-list"><i class="fa-solid fa-list"></i></button>
-					<span>Showing All {{count($results)}} results</span>
+					<span id="totalproducts">Showing All {{count($results)}} results</span>
 				</div>
 				<div class="shopview-select">
 			<h5 class="text-center">Categories</h5>

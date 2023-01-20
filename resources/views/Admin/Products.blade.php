@@ -6,21 +6,27 @@
                 <div class="card-body">
                   <h4 class="card-title">Products</h4>
                   <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped text-center">
                       <thead>
-                        <tr>
+                        <tr class="text-center" >
+                          <th>#</th>
                           <th>Product Image </th>
                           <th>Product Name</th>
                           <th>Price</th>
                           <th>Sale Price</th>
-                          <th></th>
+                          <th>Edit</th>
                         </tr>
                       </thead>
+                      <?php $count = 0; ?>
                       @foreach($products as $p)
                       <tbody>
                         <tr>
+                          <td>
+                            <?php $count = $count+1;
+                            echo $count; ?>
+                          </td>
                           <td class="py-1">
-                            <img src="{{$p->image_path}}/{{$p->img}}" alt="image"/>
+                            <img style="width: 100%; height: 170px;" src="{{$p->image_path}}/{{$p->img}}" alt="image"/>
                           </td>
                           <td>
                            {{$p->productname}}
@@ -38,6 +44,7 @@
                             <a href="<?php echo url('deleteproduct') ?>/<?php echo $p->id; ?>" class= "btn btn-sm btn-dark">delete</a>
                           </td>
                         </tr>
+                        
                       </tbody>
                       @endforeach
                     </table>
@@ -46,25 +53,7 @@
               </div>
             </div>
 
-    <!-- <div class="row">
-        <div class="col-lg-10">
-        <div class="list-wrapper" style= "height: 600px; overflow: scroll;">
-							<h4>Products</h4>
-							<ul class="list-group list-group-flush">
-                                @foreach($products as $p)
-								<li class="list-group-item">
-									<img src="{{$p->image_path}}/{{$p->img}}" class="" style="max-width: 60%; height: 200px;" alt="">
-									{{$p->productname}}
-                                    <a href="<?php echo url('AddBlogs');?>/<?php echo $p->id; ?>" class="btn btn-sm btn-dark" >edit</a>
-                                    <a href="<?php echo url('deleteproduct') ?>/<?php echo $p->id; ?>" class= "btn btn-sm btn-dark">delete</a>
-                                </li>
-                                @endforeach
-							</ul>
-						</div>
-        
-        
-        </div>
-    </div> -->
+    
 </div>
 
 @endsection

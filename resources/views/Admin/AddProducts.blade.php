@@ -25,7 +25,7 @@
                     </div>
 					<div  class="form-group">
                       <label for="slug-text">Slug</label>
-                      <input type="text" class="form-control" name="slug" id="slug-text" Required>
+                      <input type="text" class="form-control" name="Slug" id="slug-text" Required>
                     </div>
 					<div class="form-group">
                       <label for="sku">Sku</label>
@@ -60,7 +60,8 @@
 					          <div class="form-group">
                       <label>Product_image</label>
                       <div class="input-group col-xs-12">
-					             <input type="file" class="form-control" name="image" id="File_upload" Required >
+					             <input type="file" class="form-control" name="img" id="File_upload" Required >
+                       <span class="text-danger" style="font-size:10px;">*Required 543 X 803 px</span>
                       </div>
                     </div>
                     <div class="form-group">

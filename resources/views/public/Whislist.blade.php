@@ -1,6 +1,25 @@
 @extends('home')
 @section('insert')
 
+<section class="banner2-wrapper blogs-wreap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="banner2-content">
+						<h1>Whislist</h1>
+						<div class="bredcumb-wrapper wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+							<nav aria-label="breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item"><a href="#">Whislist</a></li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</section>
 <div class="container grid-container">
 		
 			<div class="productssection row" id="productssection">
@@ -33,7 +52,7 @@
                         </div>
 					</div>
 				</div>
-                <?php       }
+                <?php }
             } ?>
 			</div>
 			

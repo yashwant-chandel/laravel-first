@@ -305,7 +305,7 @@ $(document).ready(function(){
 				const divdata = [];
 				 $.each(response, function(key,value){
           
-					html =  '<a class="dropdown-item preview-item py-3"><div class="preview-thumbnail"><i class="icon-mail icon-lg"></i></div><div class="preview-item-content" ></div><h6 class="preview-subject fw-normal text-dark mb-1">New message from '+value.name+'</h6></a>';
+					html =  '<a class="dropdown-item preview-item py-3"><div class="preview-thumbnail"><i class="icon-mail icon-sm"></i></div><div class="preview-item-content" ></div><p class="preview-subject fw-normal text-dark mb-1">New message from '+value.name+'</p></a>';
 					// console.log(html);
 					divdata.push(html);
 				 });
