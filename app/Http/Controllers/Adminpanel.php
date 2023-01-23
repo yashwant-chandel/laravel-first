@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Session;
 use File;
+use Illuminate\Support\Facades\Auth;
 
 class Adminpanel extends Controller
 {
@@ -450,6 +451,7 @@ public function messagenotification(){
 
     public function logout(){
         Session::flush();
+        Auth::logout();
         return redirect('/');
     }
 }

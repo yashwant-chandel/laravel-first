@@ -9,6 +9,9 @@ use App\Http\Controllers\Blog;
 use App\Http\Controllers\Home;
 use App\Http\Controllers\Authh;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\testing;
+use App\Http\Controllers\Sentemail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -75,7 +78,15 @@ Route::get('deletetag/{id}',[Admin::class,'deletetags']);
 Route::post('categorysort',[Shop::class,'categorysort']);
 Route::post('Tagsort',[Shop::class,'Tagsort']);
 Route::post('Products/search',[Shop::class,'Searchproducts']);
-Route::get('user/changepassword',function(){
- return view('public.changepassword');
-});
+Route::get('user/changepassword',[Adminlogin::class,'passwordchange']);
 Route::post('user/passwordchange',[Adminlogin::class,'Changepassword']);
+
+Route::get('testing',function(){
+    return view('public.Testing');
+});
+Route::post('testlogin',[testing::class,'testlogin']);
+Route::post('testregister',[testing::class,'testregister']); 
+
+Route::get('forgotpass',[Sentemail::class,'forgetpasword']);
+Route::any('requestotp',[Sentemail::class,'requestotp']);
+Route::get('otp',[Sentemail::class,'otp']);

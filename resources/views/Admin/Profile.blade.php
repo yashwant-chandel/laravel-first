@@ -18,6 +18,9 @@
                                 <div class="form-group">
                                     <label for="name">Name</label>
                                 <input type="text" class="form-control" name="name" id="name" Required>
+                              @if($errors->has('name'))
+                              <span class="text-danger">{{$errors->first('name')}}</span>
+                              @endif
                             </div>
                             <div class="form-group">
                                 <label for="info">About</label>
@@ -30,8 +33,14 @@
                             <div class="form-group">
                                 <label for="heading">Heading</label>
                                 <input type="text" class="form-control" name="heading" id="heading" placeholder="heading" Required>
-                            </div>
+                                @if($errors->has('name'))
+                              <span class="text-danger">{{$errors->first('name')}}</span>
+                              @endif
+                              </div>
                             <input type="file" name ="testing" class="form-control" Required>
+                            @if($errors->has('name'))
+                              <span class="text-danger">{{$errors->first('name')}}</span>
+                              @endif
                             <button type="submit" class="btn btn-success btn-sm mt-4">Submit</button>
             </form>
       </div>

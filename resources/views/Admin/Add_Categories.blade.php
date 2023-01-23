@@ -11,9 +11,7 @@
 
 
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong class="text-dark" >@foreach ($errors->all() as $error)
-       	<div>{{ $error }}</div>
-   	 @endforeach</strong>
+  
       <h3 class="text-dark">Add Category</h3> 
 </div>
 
@@ -26,10 +24,16 @@
                       <input type="hidden" name="id" value="{{$id}}">
                       <label for="exampleInputUsername1">Catgory Name</label>
                       <input type="text"  onload="convertToSlug(this.value)" onkeyup="convertToSlug(this.value)" class="form-control" id="exampleInputUsername1" name="name" >
+                      @if($errors->has('name'))
+                      <span class="text-danger">{{$errors->first('name')}}</span>
+                      @endif
                     </div>
                     <div class="form-group">
                       <label for="slug-text">Slug</label>
                       <input type="text" class="form-control" id="slug-text" name="slug">
+                      @if($errors->has('slug'))
+                      <span class="text-danger">{{$errors->first('slug')}}</span>
+                      @endif
                     </div>
                     
                     <div class="form-group">

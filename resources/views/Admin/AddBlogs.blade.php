@@ -32,7 +32,10 @@ $session = Session::get('user');
 								
 							<label for="heading">Heading</label>
 						    <input type="text" class="form-control" name="heading" id="heading" placeholder="" Required>
-						  </div>
+							@if($errors->has('Tags_name'))
+							<span class="text-danger">{{$errors->first('heading')}}</span>
+							@endif 
+						</div>
 						  <div class="form-group">
 						  <label for="description">Description</label>
 							<textarea class="ckeditor form-control" id="description" name="description"></textarea Required>
@@ -46,6 +49,9 @@ $session = Session::get('user');
 						  <label for="exampleInputName1">Blog image</label>
 						   <input type="file" class="form-control" name="img" id="project_image" Required>
 						   <span style="font-size:10px;" class="text-danger">*Required 884 X 500 px</span>
+						   @if($errors->has('img'))
+							<span class="text-danger">{{$errors->first('img')}}</span>
+							@endif 
 						  </div>
 						  <button type="submit" class="btn btn-sm btn-success">Submit</button>
 						</form>

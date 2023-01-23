@@ -122,7 +122,7 @@
 							<?php $session = Session::get('user');
 							if(isset($session)){ ?>
 							<li>
-								<a href="<?php echo url('contact-page'); ?>">Change Password</a>
+								<a href="<?php echo url('user/changepassword'); ?>">Change Password</a>
 							</li>
 							<?php } ?>
 						</ul>

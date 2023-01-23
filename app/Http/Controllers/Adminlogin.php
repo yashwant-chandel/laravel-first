@@ -77,16 +77,36 @@ else{
         }
         
     }
-    public function Changepassword(Request $request){
-        $request->validate([
-            'password' => 'required',
-            'newpassword' => 'required|confirmed',
-            
-        ]);
-        $password = md5($request->password);
-        print_r($password);
-        
+    public function passwordchange(){
 
+        return view('public.changepassword');
+    }
+
+    public function Changepassword(Request $request){
+        $session = Session::get('user');
+        // print_r($session[0]->password);
+        if(!empty($session)){
+            $request->validate([
+                'password' => 'required',
+                'newpassword' => 'required|min:6',
+                'password_confirmation' => 'required_with:newpassword|same:newpassword|min:6'
+            ]);
+            if($session[0]->password == md5($request->password)){
+              $data = admin::find($session[0]->id);
+              $data->password = md5($request->newpassword);
+              $data->update();
+              if($data->update()){
+               return redirect('user/changepassword')->with('success','successfully change password');
+              }
+
+
+            } else{
+               return redirect('user/changepassword')->with('success',"Older password doesn't match");
+            }
+
+        }else{
+           return redirect('/loginuser')->wiht('success','sorry loggedin first');
+        }
     }
 
 }

@@ -12,24 +12,29 @@
 
   <h3 class="text-dark">Add Products</h3>
 </div>
-@foreach ($errors->all() as $error)
-       					 <div>{{ $error }}</div>
-   						 @endforeach
-	
 <form class="forms-sample" action ="<?php echo url('products');?>" method="post" enctype="multipart/form-data">
 @csrf
                     <div class="form-group">
 					<input type="hidden" name="id" value="<?php echo $id; ?>" >
                       <label for="exampleInputName1">Name</label>
                       <input type="text" class="form-control" onload="convertToSlug(this.value)" onkeyup="convertToSlug(this.value)" name="name" id="exampleInputName1" Required>
+                      @if($errors->has('name'))
+                    <span class="text-danger">{{$errors->first('name')}}</span>
+                    @endif 
                     </div>
 					<div  class="form-group">
                       <label for="slug-text">Slug</label>
                       <input type="text" class="form-control" name="Slug" id="slug-text" Required>
+                      @if($errors->has('Slug'))
+                    <span class="text-danger">{{$errors->first('Slug')}}</span>
+                    @endif 
                     </div>
 					<div class="form-group">
                       <label for="sku">Sku</label>
                       <input type="text" class="form-control" id="sku" name="sku">
+                      @if($errors->has('sku'))
+                    <span class="text-danger">{{$errors->first('sku')}}</span>
+                    @endif 
                     </div>
                     <div class="form-group">
                       <label for="exampleInputcat">Category</label>
@@ -62,6 +67,9 @@
                       <div class="input-group col-xs-12">
 					             <input type="file" class="form-control" name="img" id="File_upload" Required >
                        <span class="text-danger" style="font-size:10px;">*Required 543 X 803 px</span>
+                       @if($errors->has('img'))
+                    <span class="text-danger">{{$errors->first('img')}}</span>
+                    @endif 
                       </div>
                     </div>
                     <div class="form-group">

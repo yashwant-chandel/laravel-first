@@ -28,7 +28,7 @@ class Admin extends Controller
         // print_r($response);
         $data = Categories::all();
         // print_r($data[0]);
-        return view('Admin.Add_Categories')->with('message',$response)->with('data',$data)->with('id',$id)->with('catdata',$catdata);
+        return view('Admin.Add_Categories')->with('message',$response)->with('data',$data)->with('id',$id);
 
     }
     public function AddCategories(Request $request){

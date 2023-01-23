@@ -80,6 +80,7 @@ foreach($results as $r){
       $data = DB::table('products')->where('productname','like',$request->val.'%')->get(); 
       return response()->json($data);
    }
+   
  
   
    public function deleteproducts($id){
