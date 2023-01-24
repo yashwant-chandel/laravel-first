@@ -10,7 +10,6 @@ use App\Models\products;
 use App\Models\Cart;
 use Illuminate\Support\Facades\DB;
 
-
 class Admin extends Controller
 {
     public function Categories($id = null){
@@ -261,6 +260,7 @@ if(!empty($request->id)){
 
     }
     public function cartview(){
+        
         $session = Session::get('user');
         $cart = Session::get('cart');
         print_r($cart);
@@ -273,6 +273,7 @@ if(!empty($request->id)){
         // print_r($cartdata);
         return view('public.cart')->with('cartdata',$cartdata);
     }
+    
     public function deletecart(Request $request){
         if($request->id){
             $blog = Cart::find($request->id);

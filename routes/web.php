@@ -11,6 +11,7 @@ use App\Http\Controllers\Authh;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\testing;
 use App\Http\Controllers\Sentemail;
+use App\Http\Controllers\checkout;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,12 +82,14 @@ Route::post('Products/search',[Shop::class,'Searchproducts']);
 Route::get('user/changepassword',[Adminlogin::class,'passwordchange']);
 Route::post('user/passwordchange',[Adminlogin::class,'Changepassword']);
 
-Route::get('testing',function(){
-    return view('public.Testing');
-});
-Route::post('testlogin',[testing::class,'testlogin']);
-Route::post('testregister',[testing::class,'testregister']); 
 
+// forgot password route
 Route::get('forgotpass',[Sentemail::class,'forgetpasword']);
 Route::any('requestotp',[Sentemail::class,'requestotp']);
-Route::get('otp',[Sentemail::class,'otp']);
+Route::get('forgotpass/otpverification',[Sentemail::class,'otp']);
+Route::post('forgotpass/verifyotp',[Sentemail::class,'verifyotp']);
+Route::get('forgotpassword/newpassword',[Sentemail::class,'regenratepass']);
+
+//checkout
+// Route::get('Cart/Checkout',[checkout::class,'Checkout']);
+Route::post('Cart/Checkout/orders',[checkout::class,'addorders']);
