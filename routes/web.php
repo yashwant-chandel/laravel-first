@@ -12,6 +12,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\testing;
 use App\Http\Controllers\Sentemail;
 use App\Http\Controllers\checkout;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AdminOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,5 +93,12 @@ Route::post('forgotpass/verifyotp',[Sentemail::class,'verifyotp']);
 Route::get('forgotpassword/newpassword',[Sentemail::class,'regenratepass']);
 
 //checkout
-// Route::get('Cart/Checkout',[checkout::class,'Checkout']);
+Route::get('Cart/Checkout',[checkout::class,'Checkout']);
+Route::post('Cart/Checkoutproc',[checkout::class,'chekoutproc']);
 Route::post('Cart/Checkout/orders',[checkout::class,'addorders']);
+
+//myorders
+Route::get('orders',[OrderController::class,'index']);
+
+Route::get('admin/orders',[AdminOrderController::class,'index']);
+Route::get('admin/refund/{id}',[AdminOrderController::class,'refund']);

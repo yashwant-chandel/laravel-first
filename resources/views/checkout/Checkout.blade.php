@@ -1,100 +1,93 @@
 @extends('home')
 @section('insert')
 
-<div class="container ">
-  <main>
-   
-      <div class="col-10 ">
-        <h4 class="mb-3 text-center">Billing address</h4>
-        <form class="needs-validation" novalidate="">
-          <div class="row g-3">
-            <div class="col-sm-6">
-              <label for="firstName" class="form-label">First name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-              <div class="invalid-feedback">
-                Valid first name is required.
-              </div>
-            </div>
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card">
+          <div class="card-body p-4">
 
-            <div class="col-sm-6">
-              <label for="lastName" class="form-label">Last name</label>
-              <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
-              <div class="invalid-feedback">
-                Valid last name is required.
-              </div>
-            </div>
+            <div class="row">
 
-            <div class="col-12">
-              <label for="username" class="form-label">Username</label>
-              <div class="input-group has-validation">
-                <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="username" placeholder="Username" required="">
-              <div class="invalid-feedback">
-                  Your username is required.
+              <div class="col-lg-12">
+              <div class="col-lg-12">
+                <div class="container col-6">
+                <div class="card text-white rounded-3">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                      <h5 class="mb-0 text-dark">Card details</h5>
+                    </div>
+
+                    <form class="mt-4" method="post" id="checkout" action="{{ url('Cart/Checkoutproc') }}">
+                        @csrf
+                        <div class="form-group ">
+                            <label for="fullname" class="text-dark"> Enter your name </label>
+                            <input type="text" id="fullname" name="fullname" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="text-dark">Enter your email</label>
+                            <input type="email" id="email" name="email" class="form-control">
+                        </div>
+                        <div class="form-group my-2">
+                            <div id="card-elements"></div>
+                        </div>
+                     <button type="submit" id="checkoutbutton" class="btn btn-info btn-block my-2" data-secret="{{ $client_secret ?? '' }}" >
+                    </form>
+                      <div class="d-flex justify-content-between">
+                        <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                      </div>
+                    </button>
+
+                  </div>
+            </div>
                 </div>
+
               </div>
+
             </div>
 
-            <div class="col-12">
-              <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
-              <div class="invalid-feedback">
-                Please enter a valid email address for shipping updates.
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="address" class="form-label">Address</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
-              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-            </div>
-
-            <div class="col-md-5">
-              <label for="country" class="form-label">Country</label>
-              <select class="form-select" id="country" required="">
-                <option value="">Choose...</option>
-                <option>United States</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country.
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <label for="state" class="form-label">State</label>
-              <select class="form-select" id="state" required="">
-                <option value="">Choose...</option>
-                <option>California</option>
-              </select>
-              <div class="invalid-feedback">
-                Please provide a valid state.
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="zip" class="form-label">Zip</label>
-              <input type="text" class="form-control" id="zip" placeholder="" required="">
-              <div class="invalid-feedback">
-                Zip code required.
-              </div>
-            </div>
-</div>
-          <hr class="my-4">
-
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
-        </form>
-      
+          </div>
+        </div>
+      </div>
     </div>
-  </main>
+  </div>
+</section> 
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+     const stripe = Stripe('{{ env('STRIPE_KEY') }}');
+    const elements = stripe.elements();
+    const cardElement = elements.create('card');
+    cardElement.mount('#card-elements');
 
+    const form = document.getElementById('checkout');
+    
+    form.addEventListener('submit', async (e) =>{
+      e.preventDefault();
+      const fullname = document.getElementById('fullname');
+      const email = document.getElementById('email');
+      const checkout = document.getElementById('checkoutbutton');
+
+      const { setupIntent, error } = await stripe.confirmCardSetup(
+            checkout.dataset.secret, {
+                payment_method: {
+                    card: cardElement,
+                    billing_details: {
+                        name: fullname.value
+                    }   
+                }
+            }
+        )
+        if(error){
+          console.log('error');
+        }{
+          console.log(setupIntent);
+          $('#card-elements').append('<input type="text" name="token" value="'+setupIntent.payment_method+'">');
+          form.submit();
+        }
+
+
+    })
+   
   
-</div>
-
+</script>
 @endsection

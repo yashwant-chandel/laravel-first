@@ -273,7 +273,7 @@ if(!empty($request->id)){
         // print_r($cartdata);
         return view('public.cart')->with('cartdata',$cartdata);
     }
-    
+
     public function deletecart(Request $request){
         if($request->id){
             $blog = Cart::find($request->id);

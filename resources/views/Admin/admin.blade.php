@@ -228,6 +228,13 @@
             </div>
           </li>
           <li class="nav-item">
+            <a class="nav-link"  href="{{ url('admin/orders') }}" >
+              <i class="menu-icon mdi mdi-briefcase-check"></i>
+              <span class="menu-title">Orders</span>
+              <i class="menu-arrow"></i>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#authh" aria-expanded="false" aria-controls="authh">
               <i class="menu-icon mdi mdi-code-greater-than"></i>
               <span class="menu-title">Category</span>

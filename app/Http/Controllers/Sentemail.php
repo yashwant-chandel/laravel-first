@@ -27,7 +27,7 @@ class Sentemail extends Controller
             'body' => 'Your OTP is : '. $otp
         ];
         \Mail::to($request->email)->send(new sendEmail($mailData));
-         return redirect('forgotpass/otpverification')->with('success','otp sent successfully')->with('email',$request->email);
+        return redirect('forgotpass/otpverification')->with('success','otp sent successfully')->with('email',$request->email);
       }else{
         return redirect('forgotpass')->with('success','email is not found in our system');
       }
