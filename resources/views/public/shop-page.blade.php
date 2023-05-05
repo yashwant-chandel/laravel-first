@@ -78,7 +78,7 @@
 				<div class="col-lg-3 col-md-6 col-12">
 					<div class="card">
 						<div class="shop-img">
-							<a href="{{url('/products/'.$d->id)}}" class="product-thumb">
+							<a href="{{url('/products/'.$d->Slug)}}" class="product-thumb">
 								<img class="card-img-top" src="{{$d->image_path}}/{{$d->img}}" alt="Card image cap">
 							</a>
 							<div class="shop-icon">

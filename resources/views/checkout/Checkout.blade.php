@@ -78,15 +78,17 @@
             }
         )
         if(error){
-          console.log('error');
-        }{
-          console.log(setupIntent);
-          $('#card-elements').append('<input type="text" name="token" value="'+setupIntent.payment_method+'">');
+          // $('#card-elements').append(error);
+          // console.log('error');
+          return false;
+        }else{
+          // console.log(setupIntent);
+          $('#card-elements').append('<input type="hidden" name="token" value="'+setupIntent.payment_method+'">');
           form.submit();
         }
 
 
-    })
+    });
    
   
 </script>
